@@ -50,7 +50,7 @@ tar xf srs.*.*.tar.gz
 cd srs.*.*
 ./configure
 make
-./objs/simple_rtmp_server 1935
+./objs/simple_rtmp_server -c conf/srs.conf
 </pre>
 
 <p>step 2: publish live stream <br></p>
@@ -108,6 +108,8 @@ url: rtmp://127.0.0.1:1935/live/livestream
 <a name="history" class="anchor" href="#history"><span class="octicon octicon-link"></span></a>History</h3>
 
 <ul>
+<li>v0.3, 2013-11-02, support listen multiple ports.</li>
+<li>v0.3, 2013-11-02, support config file in nginx-conf style.</li>
 <li>v0.3, 2013-10-29, support pithy print log message specified by stage.</li>
 <li>v0.3, 2013-10-28, support librtmp without extended-timestamp in 0xCX chunk packet.</li>
 <li>v0.3, 2013-10-27, support cache last gop for client fast startup.</li>
@@ -122,8 +124,8 @@ url: rtmp://127.0.0.1:1935/live/livestream
 <li>v0.1, 2013-10-22, support vp6 codec with rtmp protocol specified simple handshake.</li>
 <li>v0.1, 2013-10-20, support multiple flash client play live streaming.</li>
 <li>v0.1, 2013-10-20, support FMLE/FFMPEG publish live streaming.</li>
-<li>v0.1, 2013-10-18, support rtmp message2chunk protocol(send message).</li>
-<li>v0.1, 2013-10-17, support rtmp chunk2message protocol(recv message).</li>
+<li>v0.1, 2013-10-18, support rtmp message2chunk protocol(send_message).</li>
+<li>v0.1, 2013-10-17, support rtmp chunk2message protocol(recv_message).</li>
 </ul><p>Winlin</p>
       </section>
     </div>
