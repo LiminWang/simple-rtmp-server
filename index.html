@@ -58,6 +58,8 @@ make
 <pre>
 FMS URL: rtmp://127.0.0.1:1935/live
 Stream:  livestream
+For example, use ffmpeg to publish:
+    ffmpeg -re -i source.flv -vcodec copy -acodec copy -f flv -y rtmp://127.0.0.1:1935/live/livestream
 </pre>
 
 <p>step 3: play live stream <br></p>
@@ -116,6 +118,9 @@ url: rtmp://127.0.0.1:1935/live/livestream
 <a name="history" class="anchor" href="#history"><span class="octicon octicon-link"></span></a>History</h3>
 
 <ul>
+<li>v0.5, 2013-11-24, support write ts file.</li>
+<li>v0.5, 2013-11-21, add ts_info tool to demux ts file.</li>
+<li>v0.5, 2013-11-16, add rtmp players(OSMF/jwplayer5/jwplayer6).</li>
 <li>v0.4, 2013-11-10, v0.4 released. 12500 lines.</li>
 <li>v0.4, 2013-11-10, support config and reload the pithy print.</li>
 <li>v0.4, 2013-11-09, support reload config(vhost and its detail).</li>
