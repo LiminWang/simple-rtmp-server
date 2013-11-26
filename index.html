@@ -58,7 +58,13 @@ make
 ./objs/simple_rtmp_server -c conf/srs.conf
 </pre>
 
-<p>step 3: publish live stream <br></p>
+<p>step 3(optional): start nginx for HLS <br></p>
+
+<pre>
+sudo ./objs/nginx/sbin/nginx
+</pre>
+
+<p>step 4: publish live stream <br></p>
 
 <pre>
 FMS URL: rtmp://127.0.0.1:1935/live
@@ -68,10 +74,11 @@ For example, use ffmpeg to publish:
     -f flv -y rtmp://127.0.0.1:1935/live/livestream
 </pre>
 
-<p>step 4: play live stream <br></p>
+<p>step 5: play live stream <br></p>
 
 <pre>
-url: rtmp://127.0.0.1:1935/live/livestream
+rtmp url: rtmp://127.0.0.1:1935/live/livestream
+m3u8 url: http://127.0.0.1:1935/live/livestream.m3u8
 </pre>
 
 <h3>
@@ -84,6 +91,8 @@ url: rtmp://127.0.0.1:1935/live/livestream
 </li>
 <li>support vhost,support __defaultVhost__.<br>
 </li>
+<li>support both rtmp and hls live streaming.<br>
+</li>
 <li>no edge server, origin server only.<br>
 </li>
 <li>no vod streaming, live streaming only.<br>
@@ -94,6 +103,8 @@ url: rtmp://127.0.0.1:1935/live/livestream
 <a name="releases" class="anchor" href="#releases"><span class="octicon octicon-link"></span></a>Releases</h3>
 
 <ul>
+<li>2013-11-26, <a href="https://github.com/winlinvip/simple-rtmp-server/releases/tag/0.5">release v0.5</a>, support HLS(m3u8), fragment and window. 14449 lines.<br>
+</li>
 <li>2013-11-10, <a href="https://github.com/winlinvip/simple-rtmp-server/releases/tag/0.4">release v0.4</a>, support reload config, pause, longtime publish/play. 12500 lines.<br>
 </li>
 <li>2013-11-04, <a href="https://github.com/winlinvip/simple-rtmp-server/releases/tag/0.3">release v0.3</a>, support vhost, refer, gop cache, listen multiple ports. 11773 lines.<br>
@@ -124,7 +135,9 @@ url: rtmp://127.0.0.1:1935/live/livestream
 <a name="history" class="anchor" href="#history"><span class="octicon octicon-link"></span></a>History</h3>
 
 <ul>
-<li>v0.5, 2013-11-24, support write ts file.</li>
+<li>v0.5, 2013-11-26, v0.5 released. 14449 lines.</li>
+<li>v0.5, 2013-11-24, support HLS(m3u8), fragment and window.</li>
+<li>v0.5, 2013-11-24, support record to ts file for HLS.</li>
 <li>v0.5, 2013-11-21, add ts_info tool to demux ts file.</li>
 <li>v0.5, 2013-11-16, add rtmp players(OSMF/jwplayer5/jwplayer6).</li>
 <li>v0.4, 2013-11-10, v0.4 released. 12500 lines.</li>
