@@ -41,6 +41,11 @@ see also: <a href="https://github.com/winlinvip/simple-rtmp-server">https://gith
 see also: <a href="http://winlinvip.github.io/simple-rtmp-server">http://winlinvip.github.io/simple-rtmp-server</a></p>
 
 <h3>
+<a name="authors" class="anchor" href="#authors"><span class="octicon octicon-link"></span></a>Authors</h3>
+
+<p>winlin(winterserver): <a href="http://blog.csdn.net/win_lin">http://blog.csdn.net/win_lin</a></p>
+
+<h3>
 <a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h3>
 
 <p>step 1: build srs <br></p>
@@ -89,6 +94,12 @@ m3u8 url: http://127.0.0.1:80/live/livestream.m3u8
 </li>
 <li>high-performance: single-thread, async socket, event/st-thread driven.<br>
 </li>
+<li>no edge server, origin server only.<br>
+</li>
+<li>no vod streaming, live streaming only.<br>
+</li>
+<li>no multiple processes, single process only.<br>
+</li>
 <li>support vhost, support __defaultVhost__.<br>
 </li>
 <li>support adobe rtmp live streaming.<br>
@@ -117,11 +128,17 @@ m3u8 url: http://127.0.0.1:80/live/livestream.m3u8
 </li>
 <li>[plan] support bandwidth test api and flash client.<br>
 </li>
-<li>no edge server, origin server only.<br>
+<li>[plan] support adobe flash refer/token/swf verification.<br>
 </li>
-<li>no vod streaming, live streaming only.<br>
+<li>[plan] support adobe amf3 codec.<br>
 </li>
-<li>no multiple processes, single process only.<br>
+<li>[plan] support dvr(record live to vod file)<br>
+</li>
+<li>[plan] support FMS edge protocol<br>
+</li>
+<li>[plan] support encryption: RTMPE/RTMPS, HLS DRM<br>
+</li>
+<li>[plan] support RTMPT, http to tranverse firewalls<br>
 </li>
 </ol><h3>
 <a name="performance" class="anchor" href="#performance"><span class="octicon octicon-link"></span></a>Performance</h3>
@@ -233,7 +250,8 @@ usr sys idl wai hiq siq| read  writ| recv  send|  in   out | int   csw
 <li>v0.1, 2013-10-20, support FMLE/FFMPEG publish live streaming.</li>
 <li>v0.1, 2013-10-18, support rtmp message2chunk protocol(send_message).</li>
 <li>v0.1, 2013-10-17, support rtmp chunk2message protocol(recv_message).</li>
-</ul><p>Winlin</p>
+</ul><p>beijing, 2013
+Winlin</p>
       </section>
     </div>
 
