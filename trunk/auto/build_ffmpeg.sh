@@ -88,5 +88,5 @@ else
         --enable-libx264 --enable-libmp3lame --enable-libaacplus \
         --enable-pthreads --extra-libs=-lpthread --enable-encoders --enable-decoders --enable-avfilter --enable-muxers --enable-demuxers && 
     make && make install
-    ret=$?; if [[ 0 -ne ${ret} ]]; then echo "build x264 failed"; exit 1; fi
+    ret=$?; if [[ 0 -ne ${ret} ]]; then echo "build ffmpeg failed"; exit 1; fi
 fi
