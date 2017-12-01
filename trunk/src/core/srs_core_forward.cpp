@@ -324,7 +324,7 @@ int SrsForwarder::forward()
 			}
 		}
 
-		// clear sendout mesages.
+		// clear sendout messages.
 		if (i < count) {
 			srs_warn("clear forwarded msg, total=%d, forwarded=%d, ret=%d", count, i, ret);
 		} else {
