@@ -275,7 +275,7 @@ int SrsConfDirective::read_token(SrsFileBuffer* buffer, std::vector<std::string>
 			return ERROR_SYSTEM_CONFIG_INVALID; 
 		}
 		
-		// last charecter is space.
+		// last character is space.
 		if (last_space) {
 			if (is_common_space(ch)) {
 				continue;
@@ -319,7 +319,7 @@ int SrsConfDirective::read_token(SrsFileBuffer* buffer, std::vector<std::string>
 					continue;
 			}
 		} else {
-		// last charecter is not space
+		// last character is not space
 			bool found = false;
 			if (d_quoted) {
 				if (ch == '"') {
