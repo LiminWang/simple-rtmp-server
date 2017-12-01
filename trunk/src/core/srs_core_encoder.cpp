@@ -619,7 +619,7 @@ int SrsEncoder::parse_transcode(SrsRequest* req, SrsConfDirective* conf)
 	for (int i = 0; i < (int)engines.size(); i++) {
 		SrsConfDirective* engine = engines[i];
 		if (!config->get_engine_enabled(engine)) {
-			srs_trace("ignore the diabled transcode engine: %s %s", 
+			srs_trace("ignore the disabled transcode engine: %s %s", 
 				conf->arg0().c_str(), engine->arg0().c_str());
 			continue;
 		}
