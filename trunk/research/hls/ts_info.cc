@@ -1620,10 +1620,10 @@ int TSPayload::demux(TSContext* ctx, TSPacket* pkt, u_int8_t* start, u_int8_t* l
             return ret;
         }
         
-		// parse continous packet.
+		// parse continuous packet.
 	    if (!pkt->header->payload_unit_start_indicator) {
 			if (msg->packet_start_code_prefix != 0x01) {
-				trace("ts+pes decode continous packet error, msg is empty.");
+				trace("ts+pes decode continuous packet error, msg is empty.");
 				return -1;
 			}
 			msg->append(p, last - p);
