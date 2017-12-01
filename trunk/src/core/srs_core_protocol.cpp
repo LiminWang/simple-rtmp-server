@@ -1532,7 +1532,7 @@ int SrsPacket::decode(SrsStream* stream)
 
 	ret = ERROR_SYSTEM_PACKET_INVALID;
 	srs_error("current packet is not support to decode. "
-		"paket=%s, ret=%d", get_class_name(), ret);
+		"packet=%s, ret=%d", get_class_name(), ret);
 	
 	return ret;
 }
@@ -1597,7 +1597,7 @@ int SrsPacket::encode_packet(SrsStream* stream)
 
 	ret = ERROR_SYSTEM_PACKET_INVALID;
 	srs_error("current packet is not support to encode. "
-		"paket=%s, ret=%d", get_class_name(), ret);
+		"packet=%s, ret=%d", get_class_name(), ret);
 	
 	return ret;
 }
