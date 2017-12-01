@@ -23,7 +23,7 @@ step 2: start srs <br/>
 <pre>
 ./objs/simple_rtmp_server -c conf/srs.conf
 </pre>
-step 3(optinal): start srs listen at 19350 to forward to<br/>
+step 3(optimal): start srs listen at 19350 to forward to<br/>
 <pre>
 ./objs/simple_rtmp_server -c conf/srs.19350.conf
 </pre>
