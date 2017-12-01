@@ -283,8 +283,8 @@ public:
 	virtual ~ISrsMessage();
 public:
 	/**
-	* whether message canbe decoded.
-	* only update the context when message canbe decoded.
+	* whether message can be decoded.
+	* only update the context when message can be decoded.
 	*/
 	virtual bool can_decode() = 0;
 /**
@@ -304,7 +304,7 @@ public:
 
 /**
 * common RTMP message defines in rtmp.part2.Message-Formats.pdf.
-* cannbe parse and decode.
+* can be parse and decode.
 */
 class SrsCommonMessage : public ISrsMessage
 {
