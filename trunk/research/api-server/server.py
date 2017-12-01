@@ -91,7 +91,7 @@ class RESTClients(object):
                   "client_id": 1985,
                   "ip": "192.168.1.10", "vhost": "video.test.com", "app": "live"
               }
-    if valid, the hook must return HTTP code 200(Stauts OK) and response
+    if valid, the hook must return HTTP code 200(Status OK) and response
     an int value specifies the error code(0 corresponding to success):
           0
     '''
@@ -178,7 +178,7 @@ class RESTStreams(object):
                   "ip": "192.168.1.10", "vhost": "video.test.com", "app": "live",
                   "stream": "livestream"
               }
-    if valid, the hook must return HTTP code 200(Stauts OK) and response
+    if valid, the hook must return HTTP code 200(Status OK) and response
     an int value specifies the error code(0 corresponding to success):
           0
     '''
@@ -265,7 +265,7 @@ class RESTSessions(object):
                   "ip": "192.168.1.10", "vhost": "video.test.com", "app": "live",
                   "stream": "livestream"
               }
-    if valid, the hook must return HTTP code 200(Stauts OK) and response
+    if valid, the hook must return HTTP code 200(Status OK) and response
     an int value specifies the error code(0 corresponding to success):
           0
     '''
