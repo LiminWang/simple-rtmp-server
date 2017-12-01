@@ -142,7 +142,7 @@ struct SrsAmf0ObjectEOF : public SrsAmf0Any
 /**
 * to ensure in inserted order.
 * for the FMLE will crash when AMF0Object is not ordered by inserted,
-* if ordered in map, the string compare order, the FMLE will creash when
+* if ordered in map, the string compare order, the FMLE will crash when
 * get the response of connect app.
 */
 struct SrsUnSortedHashtable
