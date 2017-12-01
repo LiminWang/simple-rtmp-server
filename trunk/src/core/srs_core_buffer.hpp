@@ -35,7 +35,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 class SrsSocket;
 
 /**
-* the buffer provices bytes cache for protocol. generally, 
+* the buffer provides bytes cache for protocol. generally, 
 * protocol recv data from socket, put into buffer, decode to RTMP message.
 * protocol encode RTMP message to bytes, put into buffer, send to socket.
 */

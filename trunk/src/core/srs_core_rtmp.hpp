@@ -129,7 +129,7 @@ public:
 };
 
 /**
-* the rtmp provices rtmp-command-protocol services,
+* the rtmp provides rtmp-command-protocol services,
 * a high level protocol, media stream oriented services,
 * such as connect to vhost/app, play stream, get audio/video data.
 */
