@@ -736,7 +736,7 @@ void TSMessage::append(u_int8_t*& p, int size)
 		return;
 	}
 	
-	// for PES_packet_length is 0, the size is varient.
+	// for PES_packet_length is 0, the size is variable.
 	if (packet_data_size - parsed_packet_size < size) {
 		int realloc_size = size - (packet_data_size - parsed_packet_size);
 		packet_data = (char*)realloc(packet_data, packet_data_size + realloc_size);
