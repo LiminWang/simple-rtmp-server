@@ -133,7 +133,7 @@ enum TSPidType
 {
     TSPidTypeReserved = 0, // TSPidTypeReserved, nothing parsed, used reserved.
     
-    TSPidTypePAT, // Program associtate table
+    TSPidTypePAT, // Program associate table
     TSPidTypePMT, // Program map table.
     
     TSPidTypeVideo, // only for H264 video
