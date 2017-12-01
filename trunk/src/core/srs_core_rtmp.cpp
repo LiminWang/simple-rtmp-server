@@ -813,7 +813,7 @@ int SrsRtmp::on_play_client_pause(int stream_id, bool is_pause)
 			}
 			srs_info("send onStatus(NetStream.Unpause.Notify) message success.");
 		}
-		// StreanBegin
+		// StreamBegin
 		if (true) {
 			SrsCommonMessage* msg = new SrsCommonMessage();
 			SrsUserControlPacket* pkt = new SrsUserControlPacket();
@@ -823,10 +823,10 @@ int SrsRtmp::on_play_client_pause(int stream_id, bool is_pause)
 			msg->set_packet(pkt, 0);
 			
 			if ((ret = protocol->send_message(msg)) != ERROR_SUCCESS) {
-				srs_error("send PCUC(StreanBegin) message failed. ret=%d", ret);
+				srs_error("send PCUC(StreamBegin) message failed. ret=%d", ret);
 				return ret;
 			}
-			srs_info("send PCUC(StreanBegin) message success.");
+			srs_info("send PCUC(StreamBegin) message success.");
 		}
 	}
 	
