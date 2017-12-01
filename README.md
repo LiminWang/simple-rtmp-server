@@ -107,7 +107,7 @@ Stream Architecture:
 +-----------+-------------------------+----------------+
 | (FMLE,    |   +-> RTMP protocol ----+-> Flash Player |
 | FFMPEG, --+-> +-> HLS/NGINX --------+-> m3u8 player  |
-| Flash,    |   +-> Fowarder ---------+-> RTMP Server  |
+| Flash,    |   +-> Forwarder --------+-> RTMP Server  |
 | XSPLIT,   |   +-> Transcoder -------+-> RTMP Server  |
 |  ...)     |   +-> DVR --------------+-> FILE         |
 +-----------+-------------------------+----------------+
