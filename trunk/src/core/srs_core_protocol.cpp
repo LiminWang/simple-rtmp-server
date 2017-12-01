@@ -234,7 +234,7 @@ messages.
 #define RTMP_CID_OverStream 0x05
 /**
 * the stream message(amf0/amf3), over NetStream, the midst state(we guess).
-* rarely used, e.g. play("mp4:mystram.f4v")
+* rarely used, e.g. play("mp4:mystream.f4v")
 */
 #define RTMP_CID_OverStream2 0x08
 /**
