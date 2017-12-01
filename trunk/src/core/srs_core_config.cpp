@@ -478,7 +478,7 @@ int SrsConfig::reload()
 		srs_trace("reload pithy_print success.");
 	}
 	
-	// TODO: suppor reload hls/forward/ffmpeg/http
+	// TODO: support reload hls/forward/ffmpeg/http
 	
 	return ret;
 }
