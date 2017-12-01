@@ -412,7 +412,7 @@ public:
 * @remark we seperate the packet from message,
 *		for the packet focus on logic and domain data,
 *		the message bind to the protocol and focus on protocol, such as header.
-* 		we can merge the message and packet, using OOAD hierachy, packet extends from message,
+* 		we can merge the message and packet, using OOAD hierarchy, packet extends from message,
 * 		it's better for me to use components -- the message use the packet as payload.
 */
 class SrsPacket
