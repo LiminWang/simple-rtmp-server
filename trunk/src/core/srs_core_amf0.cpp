@@ -870,7 +870,7 @@ int srs_amf0_get_any_size(SrsAmf0Any* value)
 		}
 		default: {
 			// TOOD: other AMF0 types.
-			srs_warn("ignore unkown AMF0 type size.");
+			srs_warn("ignore unknown AMF0 type size.");
 			break;
 		}
 	}
