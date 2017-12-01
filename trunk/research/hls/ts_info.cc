@@ -1758,7 +1758,7 @@ int TSHeader::demux(TSContext* ctx, TSPacket* pkt, u_int8_t* start, u_int8_t* la
     
     ctx->push(pid, TSStreamTypeReserved, TSPidTypePAT, continuity_counter);
     
-    trace("ts+header sync: %#x error: %d unit_start: %d priotiry: %d pid: %d scrambling: %d adaptation: %d counter: %d",
+    trace("ts+header sync: %#x error: %d unit_start: %d priority: %d pid: %d scrambling: %d adaptation: %d counter: %d",
         sync_byte, transport_error_indicator, payload_unit_start_indicator, transport_priority, pid,
         transport_scrambling_control, adaptation_field_control, continuity_counter);
         
