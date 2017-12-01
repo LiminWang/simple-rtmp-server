@@ -283,13 +283,13 @@ SrsProtocol::~SrsProtocol()
 	srs_freep(skt);
 }
 
-std::string SrsProtocol::get_request_name(double transcationId)
+std::string SrsProtocol::get_request_name(double transactionId)
 {
-	if (requests.find(transcationId) == requests.end()) {
+	if (requests.find(transactionId) == requests.end()) {
 		return "";
 	}
 	
-	return requests[transcationId];
+	return requests[transactionId];
 }
 
 void SrsProtocol::set_recv_timeout(int64_t timeout_us)
@@ -1235,10 +1235,10 @@ int SrsCommonMessage::decode_packet(SrsProtocol* protocol)
 		if (command == RTMP_AMF0_COMMAND_RESULT || command == RTMP_AMF0_COMMAND_ERROR) {
 			double transactionId = 0.0;
 			if ((ret = srs_amf0_read_number(stream, transactionId)) != ERROR_SUCCESS) {
-				srs_error("decode AMF0/AMF3 transcationId failed. ret=%d", ret);
+				srs_error("decode AMF0/AMF3 transactionId failed. ret=%d", ret);
 				return ret;
 			}
-			srs_verbose("AMF0/AMF3 command id, transcationId=%.2f", transactionId);
+			srs_verbose("AMF0/AMF3 command id, transactionId=%.2f", transactionId);
 			
 			// reset stream, for header read completed.
 			stream->reset();

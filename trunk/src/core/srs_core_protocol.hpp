@@ -109,7 +109,7 @@ public:
 	SrsProtocol(st_netfd_t client_stfd);
 	virtual ~SrsProtocol();
 public:
-	std::string get_request_name(double transcationId);
+	std::string get_request_name(double transactionId);
 	/**
 	* set the timeout in us.
 	* if timeout, recv/send message return ERROR_SOCKET_TIMEOUT.
