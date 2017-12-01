@@ -450,7 +450,7 @@ public:
 	virtual int get_message_type();
 	/**
 	* the subpacket can override this encode,
-	* for example, video and audio will directly set the payload withou memory copy,
+	* for example, video and audio will directly set the payload without memory copy,
 	* other packet which need to serialize/encode to bytes by override the 
 	* get_size and encode_packet.
 	*/
