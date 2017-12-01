@@ -131,7 +131,7 @@ Supported operating systems and hardware:
 10. support cache last gop for flash player to fast startup.<br/>
 11. support listen at multiple ports.<br/>
 12. support long time(>4.6hours) publish/play.<br/>
-13. high performace, 1800 connections(500kbps), 900Mbps, CPU 90.2%, 41MB<br/>
+13. high performance, 1800 connections(500kbps), 900Mbps, CPU 90.2%, 41MB<br/>
 14. support forward publish stream to build active-standby cluster.<br/>
 15. support broadcast by forward the stream to other servers(origin/edge).<br/>
 16. support live stream transcoding by ffmpeg.<br/>
