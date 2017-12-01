@@ -409,7 +409,7 @@ public:
 
 /**
 * the decoded message payload.
-* @remark we seperate the packet from message,
+* @remark we separate the packet from message,
 *		for the packet focus on logic and domain data,
 *		the message bind to the protocol and focus on protocol, such as header.
 * 		we can merge the message and packet, using OOAD hierarchy, packet extends from message,
