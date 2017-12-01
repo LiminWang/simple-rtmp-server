@@ -1174,7 +1174,7 @@ SrsCommonMessage::SrsCommonMessage()
 SrsCommonMessage::~SrsCommonMessage()
 {	
 	// we must directly free the ptrs,
-	// nevery use the virtual functions to delete,
+	// never use the virtual functions to delete,
 	// for in the destructor, the virtual functions is disabled.
 	
 	srs_freepa(payload);
