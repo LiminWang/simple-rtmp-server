@@ -304,7 +304,7 @@ public:
 
 /**
 * common RTMP message defines in rtmp.part2.Message-Formats.pdf.
-* can be parse and decode.
+* can be parse and decoded.
 */
 class SrsCommonMessage : public ISrsMessage
 {
