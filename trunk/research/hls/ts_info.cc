@@ -94,16 +94,16 @@ enum TSPidTable
 /**
 * Table 2-5 – Adaptation field control values, page 38.
 */
-enum TSAdaptionType
+enum TSAdaptationType
 {
 	// Reserved for future use by ISO/IEC
-	TSAdaptionTypeReserved		= 0x00,
+	TSAdaptationTypeReserved		= 0x00,
 	// No adaptation_field, payload only
-	TSAdaptionTypePayloadOnly 	= 0x01,
+	TSAdaptationTypePayloadOnly 	= 0x01,
 	// Adaptation_field only, no payload
-	TSAdaptionTypeAdaptionOnly 	= 0x02,
+	TSAdaptationTypeAdaptationOnly 	= 0x02,
 	// Adaptation_field followed by payload
-	TSAdaptionTypeBoth			= 0x03,
+	TSAdaptationTypeBoth			= 0x03,
 };
 #endif
 
@@ -142,7 +142,7 @@ enum TSPidType
 
 // forward declares.
 class TSHeader;
-class TSAdaptionField;
+class TSAdaptationField;
 class TSPayload;
 class TSPayloadReserved;
 class TSPayloadPAT;
@@ -156,7 +156,7 @@ class TSPacket
 {
 public:
 	TSHeader* header;
-    TSAdaptionField* adaption_field;
+    TSAdaptationField* adaptation_field;
     TSPayload* payload;
     
     TSPacket();
@@ -180,7 +180,7 @@ public:
     TSPidTable pid; //13bits
     // 1B
     int8_t transport_scrambling_control; //2bits
-    TSAdaptionType adaption_field_control; //2bits
+    TSAdaptationType adaptation_field_control; //2bits
     u_int8_t continuity_counter; //4bits
     
     TSHeader();
@@ -189,12 +189,12 @@ public:
     int demux(TSContext* ctx, TSPacket* pkt, u_int8_t* start, u_int8_t* last, u_int8_t*& p, TSMessage*& pmsg);
 };
 
-// variant ts packet adation field. page 40.
-class TSAdaptionField 
+// variant ts packet adaptation field. page 40.
+class TSAdaptationField 
 {
 public:
     // 1B
-    u_int8_t adaption_field_length; //8bits
+    u_int8_t adaptation_field_length; //8bits
     // 1B
     int8_t discontinuity_indicator; //1bit
     int8_t random_access_indicator; //1bit
@@ -248,14 +248,14 @@ public:
     // left bytes.
     char* af_reserved;
     
-    // user defined total adaption field size.
+    // user defined total adaptation field size.
     int __field_size;
     // logic pcr/original_pcr
     int64_t pcr;
     int64_t original_pcr;
     
-    TSAdaptionField();
-    virtual ~TSAdaptionField();
+    TSAdaptationField();
+    virtual ~TSAdaptationField();
     int get_size();
     int demux(TSContext* ctx, TSPacket* pkt, u_int8_t* start, u_int8_t* last, u_int8_t*& p, TSMessage*& pmsg);
 };
@@ -762,9 +762,9 @@ bool TSMessage::is_video()
 	return type == TSPidTypeVideo;
 }
 
-TSAdaptionField::TSAdaptionField()
+TSAdaptationField::TSAdaptationField()
 {
-    adaption_field_length = 0;
+    adaptation_field_length = 0;
     discontinuity_indicator = 0;
     random_access_indicator = 0;
     elementary_stream_priority_indicator = 0;
@@ -801,27 +801,27 @@ TSAdaptionField::TSAdaptionField()
     original_pcr = 0;
 }
 
-TSAdaptionField::~TSAdaptionField()
+TSAdaptationField::~TSAdaptationField()
 {
     srs_freepa(transport_private_data);
     srs_freepa(af_ext_reserved);
     srs_freepa(af_reserved);
 }
 
-int TSAdaptionField::get_size()
+int TSAdaptationField::get_size()
 {
     return __field_size;
 }
 
-int TSAdaptionField::demux(TSContext* ctx, TSPacket* pkt, u_int8_t* start, u_int8_t* last, u_int8_t*& p, TSMessage*& pmsg)
+int TSAdaptationField::demux(TSContext* ctx, TSPacket* pkt, u_int8_t* start, u_int8_t* last, u_int8_t*& p, TSMessage*& pmsg)
 {
     int ret = 0;
 
-    adaption_field_length = *p++;
+    adaptation_field_length = *p++;
     u_int8_t* pos_af = p;
-    __field_size = 1 + adaption_field_length;
+    __field_size = 1 + adaptation_field_length;
     
-    if (adaption_field_length <= 0) {
+    if (adaptation_field_length <= 0) {
         trace("ts+af empty af decoded.");
         return ret;
     }
@@ -945,7 +945,7 @@ int TSAdaptionField::demux(TSContext* ctx, TSPacket* pkt, u_int8_t* start, u_int
     }
     
     // af_reserved
-    int af_size = adaption_field_length - (p - pos_af);
+    int af_size = adaptation_field_length - (p - pos_af);
     if (af_size > 0) {
         af_reserved = new char[af_size];
         memcpy(af_reserved, p, af_size);
@@ -1605,8 +1605,8 @@ int TSPayload::demux(TSContext* ctx, TSPacket* pkt, u_int8_t* start, u_int8_t* l
     if (pid && (pid->type == TSPidTypeVideo || pid->type == TSPidTypeAudio)) {
 	    TSMessage* msg = ctx->get_msg(pkt->header->pid);
 
-		if (pkt->adaption_field->pcr > 0) {
-			msg->pcr = pkt->adaption_field->pcr;
+		if (pkt->adaptation_field->pcr > 0) {
+			msg->pcr = pkt->adaptation_field->pcr;
 		}
 	    
         // flush previous PES_packet_length(0) packets.
@@ -1653,14 +1653,14 @@ int TSPayload::demux(TSContext* ctx, TSPacket* pkt, u_int8_t* start, u_int8_t* l
 TSPacket::TSPacket()
 {
     header = new TSHeader();
-    adaption_field = new TSAdaptionField();
+    adaptation_field = new TSAdaptationField();
     payload = new TSPayload();
 }
 
 TSPacket::~TSPacket()
 {
     srs_freep(header);
-    srs_freep(adaption_field);
+    srs_freep(adaptation_field);
     srs_freep(payload);
 }
 
@@ -1672,18 +1672,18 @@ int TSPacket::demux(TSContext* ctx, u_int8_t* start, u_int8_t* last, u_int8_t*& 
         return ret;
     }
 
-    if (header->adaption_field_control == TSAdaptionTypeAdaptionOnly || header->adaption_field_control == TSAdaptionTypeBoth) {
-        if ((ret = adaption_field->demux(ctx, this, start, last, p, pmsg)) != 0) {
-            trace("ts+header af(adaption field) decode error. ret=%d", ret);
+    if (header->adaptation_field_control == TSAdaptationTypeAdaptationOnly || header->adaptation_field_control == TSAdaptationTypeBoth) {
+        if ((ret = adaptation_field->demux(ctx, this, start, last, p, pmsg)) != 0) {
+            trace("ts+header af(adaptation field) decode error. ret=%d", ret);
             return ret;
         }
-        trace("ts+header af(adaption field) decoded.");
+        trace("ts+header af(adaptation field) decoded.");
     }
     
     // calc the user defined data size for payload.
-    payload->size = TS_PACKET_SIZE - header->get_size() - adaption_field->get_size();
+    payload->size = TS_PACKET_SIZE - header->get_size() - adaptation_field->get_size();
     
-    if (header->adaption_field_control == TSAdaptionTypePayloadOnly || header->adaption_field_control == TSAdaptionTypeBoth) {
+    if (header->adaptation_field_control == TSAdaptationTypePayloadOnly || header->adaptation_field_control == TSAdaptationTypeBoth) {
 	    // parse new packet.
         if ((ret = payload->demux(ctx, this, start, last, p, pmsg)) != 0) {
             trace("ts+header payload decode error. ret=%d", ret);
@@ -1713,7 +1713,7 @@ TSHeader::TSHeader()
     transport_priority = 0;
     pid = TSPidTablePAT;
     transport_scrambling_control = 0;
-    adaption_field_control = TSAdaptionTypeReserved;
+    adaptation_field_control = TSAdaptationTypeReserved;
     continuity_counter = 0;
 }
 
@@ -1752,15 +1752,15 @@ int TSHeader::demux(TSContext* ctx, TSPacket* pkt, u_int8_t* start, u_int8_t* la
     continuity_counter = *p++;
     
     transport_scrambling_control = (continuity_counter >> 6) & 0x03;
-    int8_t _adaption_field_control = (continuity_counter >> 4) & 0x03;
-    adaption_field_control = (TSAdaptionType)_adaption_field_control;
+    int8_t _adaptation_field_control = (continuity_counter >> 4) & 0x03;
+    adaptation_field_control = (TSAdaptationType)_adaptation_field_control;
     continuity_counter &= 0x0F;
     
     ctx->push(pid, TSStreamTypeReserved, TSPidTypePAT, continuity_counter);
     
-    trace("ts+header sync: %#x error: %d unit_start: %d priotiry: %d pid: %d scrambling: %d adaption: %d counter: %d",
+    trace("ts+header sync: %#x error: %d unit_start: %d priotiry: %d pid: %d scrambling: %d adaptation: %d counter: %d",
         sync_byte, transport_error_indicator, payload_unit_start_indicator, transport_priority, pid,
-        transport_scrambling_control, adaption_field_control, continuity_counter);
+        transport_scrambling_control, adaptation_field_control, continuity_counter);
         
     return ret;
 }
