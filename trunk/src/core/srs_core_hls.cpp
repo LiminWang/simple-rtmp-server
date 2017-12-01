@@ -1220,13 +1220,13 @@ int SrsHls::on_meta_data(SrsOnMetaDataPacket* metadata)
 	int ret = ERROR_SUCCESS;
 
 	if (!metadata || !metadata->metadata) {
-		srs_trace("no metadata persent, hls ignored it.");
+		srs_trace("no metadata present, hls ignored it.");
 		return ret;
 	}
 	
 	SrsAmf0Object* obj = metadata->metadata;
 	if (obj->size() <= 0) {
-		srs_trace("no metadata persent, hls ignored it.");
+		srs_trace("no metadata present, hls ignored it.");
 		return ret;
 	}
 	
