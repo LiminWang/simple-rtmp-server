@@ -303,7 +303,7 @@ int SrsGopCache::cache(SrsSharedPtrMessage* msg)
 			
 		clear();
 		
-		// curent msg is video frame, so we set to 1.
+		// current msg is video frame, so we set to 1.
 		cached_video_count = 1;
 	}
 	
