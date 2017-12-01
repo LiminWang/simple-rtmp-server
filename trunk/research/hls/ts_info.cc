@@ -314,7 +314,7 @@ public:
     u_int16_t transport_stream_id; //16bits
     
     // 1B
-    // 2bits reerverd.
+    // 2bits reserved.
     int8_t version_number; //5bits
     int8_t current_next_indicator; //1bit
     
@@ -381,7 +381,7 @@ public:
     u_int16_t program_number; //16bits
     
     // 1B
-    // 2bits reerverd.
+    // 2bits reserved.
     int8_t version_number; //5bits
     int8_t current_next_indicator; //1bit
     
