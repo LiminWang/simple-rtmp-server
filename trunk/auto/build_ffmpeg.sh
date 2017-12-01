@@ -72,7 +72,7 @@ else
     rm -rf ffmpeg-2.1.1 && unzip -q ${ff_src_dir}/ffmpeg-2.1.1.zip &&
     echo "remove all so to force the ffmpeg to build in static" &&
     rm -f ${ff_release_dir}/lib/*.so* &&
-    echo "export the dir to enable the build command can be use." &&
+    echo "export the dir to enable the build command can be used." &&
     export ffmpeg_exported_release_dir=${ff_release_dir} &&
     cd ffmpeg-2.1.1 && 
     ./configure \
