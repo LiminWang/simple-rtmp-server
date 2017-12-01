@@ -102,7 +102,7 @@ int SrsForwarder::on_publish(SrsRequest* req, std::string forward_server)
 	
 	if (source_ep == dest_ep) {
 		ret = ERROR_SYSTEM_FORWARD_LOOP;
-		srs_warn("farder loop detected. src=%s, dest=%s, ret=%d", 
+		srs_warn("forward loop detected. src=%s, dest=%s, ret=%d", 
 			source_ep.c_str(), dest_ep.c_str(), ret);
 		return ret;
 	}
