@@ -60,7 +60,7 @@ int SrsRtmpJitter::correct(SrsSharedPtrMessage* msg, int tba, int tbv, int64_t* 
 	* we use a very simple time jitter detect/correct algorithm:
 	* 1. delta: ensure the delta is positive and valid,
 	* 	we set the delta to DEFAULT_FRAME_TIME_MS,
-	* 	if the delta of time is nagative or greater than CONST_MAX_JITTER_MS.
+	* 	if the delta of time is negative or greater than CONST_MAX_JITTER_MS.
 	* 2. last_pkt_time: specifies the original packet time,
 	* 	is used to detect next jitter.
 	* 3. last_pkt_correct_time: simply add the positive delta, 

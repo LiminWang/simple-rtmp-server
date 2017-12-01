@@ -67,7 +67,7 @@ public:
 	virtual bool require(int required_size);
 	/**
 	* to skip some size.
-	* @size can be any value. positive to forward; nagetive to backward.
+	* @size can be any value. positive to forward; negative to backward.
 	*/
 	virtual void skip(int size);
 	/**
