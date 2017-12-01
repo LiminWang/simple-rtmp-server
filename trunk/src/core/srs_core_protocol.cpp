@@ -396,7 +396,7 @@ int SrsProtocol::send_message(ISrsMessage* msg)
 		if (p == (char*)msg->payload) {
 			// write new chunk stream header, fmt is 0
 			pheader = out_header_fmt0;
-			*pheader++ = 0x00 | (msg->get_perfer_cid() & 0x3F);
+			*pheader++ = 0x00 | (msg->get_prefered_cid() & 0x3F);
 			
 		    // chunk message header, 11 bytes
 		    // timestamp, 3bytes, big-endian
@@ -441,7 +441,7 @@ int SrsProtocol::send_message(ISrsMessage* msg)
 		} else {
 			// write no message header chunk stream, fmt is 3
 			pheader = out_header_fmt3;
-			*pheader++ = 0xC0 | (msg->get_perfer_cid() & 0x3F);
+			*pheader++ = 0xC0 | (msg->get_prefered_cid() & 0x3F);
 		    
 		    // chunk extended timestamp header, 0 or 4 bytes, big-endian
 		    // 6.1.3. Extended Timestamp
@@ -1348,7 +1348,7 @@ SrsPacket* SrsCommonMessage::get_packet()
 	return packet;
 }
 
-int SrsCommonMessage::get_perfer_cid()
+int SrsCommonMessage::get_prefered_cid()
 {
 	if (!packet) {
 		return RTMP_CID_ProtocolControl;
@@ -1356,11 +1356,11 @@ int SrsCommonMessage::get_perfer_cid()
 	
 	// we do not use the complex basic header,
 	// ensure the basic header is 1bytes.
-	if (packet->get_perfer_cid() < 2) {
-		return packet->get_perfer_cid();
+	if (packet->get_prefered_cid() < 2) {
+		return packet->get_prefered_cid();
 	}
 	
-	return packet->get_perfer_cid();
+	return packet->get_prefered_cid();
 }
 
 void SrsCommonMessage::set_packet(SrsPacket* pkt, int stream_id)
@@ -1399,7 +1399,7 @@ SrsSharedPtrMessage::SrsSharedPtr::SrsSharedPtr()
 {
 	payload = NULL;
 	size = 0;
-	perfer_cid = 0;
+	prefered_cid = 0;
 	shared_count = 0;
 }
 
@@ -1467,11 +1467,11 @@ int SrsSharedPtrMessage::initialize(SrsCommonMessage* source, char* payload, int
 	ptr->size = size;
 	
 	if (source->header.is_video()) {
-		ptr->perfer_cid = RTMP_CID_Video;
+		ptr->prefered_cid = RTMP_CID_Video;
 	} else if (source->header.is_audio()) {
-		ptr->perfer_cid = RTMP_CID_Audio;
+		ptr->prefered_cid = RTMP_CID_Audio;
 	} else {
-		ptr->perfer_cid = RTMP_CID_OverConnection2;
+		ptr->prefered_cid = RTMP_CID_OverConnection2;
 	}
 	
 	super::payload = (int8_t*)ptr->payload;
@@ -1501,13 +1501,13 @@ SrsSharedPtrMessage* SrsSharedPtrMessage::copy()
 	return copy;
 }
 
-int SrsSharedPtrMessage::get_perfer_cid()
+int SrsSharedPtrMessage::get_prefered_cid()
 {
 	if (!ptr) {
 		return 0;
 	}
 	
-	return ptr->perfer_cid;
+	return ptr->prefered_cid;
 }
 
 int SrsSharedPtrMessage::encode_packet()
@@ -1537,7 +1537,7 @@ int SrsPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsPacket::get_perfer_cid()
+int SrsPacket::get_prefered_cid()
 {
 	return 0;
 }
@@ -1655,7 +1655,7 @@ int SrsConnectAppPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsConnectAppPacket::get_perfer_cid()
+int SrsConnectAppPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverConnection;
 }
@@ -1763,7 +1763,7 @@ int SrsConnectAppResPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsConnectAppResPacket::get_perfer_cid()
+int SrsConnectAppResPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverConnection;
 }
@@ -1854,7 +1854,7 @@ int SrsCreateStreamPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsCreateStreamPacket::get_perfer_cid()
+int SrsCreateStreamPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverConnection;
 }
@@ -1945,7 +1945,7 @@ int SrsCreateStreamResPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsCreateStreamResPacket::get_perfer_cid()
+int SrsCreateStreamResPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverConnection;
 }
@@ -2060,7 +2060,7 @@ SrsFMLEStartResPacket::~SrsFMLEStartResPacket()
 	srs_freep(args);
 }
 
-int SrsFMLEStartResPacket::get_perfer_cid()
+int SrsFMLEStartResPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverConnection;
 }
@@ -2163,7 +2163,7 @@ int SrsPublishPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsPublishPacket::get_perfer_cid()
+int SrsPublishPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverStream;
 }
@@ -2338,7 +2338,7 @@ int SrsPlayPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsPlayPacket::get_perfer_cid()
+int SrsPlayPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverStream;
 }
@@ -2421,7 +2421,7 @@ SrsPlayResPacket::~SrsPlayResPacket()
 	srs_freep(desc);
 }
 
-int SrsPlayResPacket::get_perfer_cid()
+int SrsPlayResPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverStream;
 }
@@ -2483,7 +2483,7 @@ SrsOnBWDonePacket::~SrsOnBWDonePacket()
 	srs_freep(args);
 }
 
-int SrsOnBWDonePacket::get_perfer_cid()
+int SrsOnBWDonePacket::get_prefered_cid()
 {
 	return RTMP_CID_OverConnection;
 }
@@ -2540,7 +2540,7 @@ SrsOnStatusCallPacket::~SrsOnStatusCallPacket()
 	srs_freep(data);
 }
 
-int SrsOnStatusCallPacket::get_perfer_cid()
+int SrsOnStatusCallPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverStream;
 }
@@ -2600,7 +2600,7 @@ SrsOnStatusDataPacket::~SrsOnStatusDataPacket()
 	srs_freep(data);
 }
 
-int SrsOnStatusDataPacket::get_perfer_cid()
+int SrsOnStatusDataPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverStream;
 }
@@ -2647,7 +2647,7 @@ SrsSampleAccessPacket::~SrsSampleAccessPacket()
 {
 }
 
-int SrsSampleAccessPacket::get_perfer_cid()
+int SrsSampleAccessPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverStream;
 }
@@ -2751,7 +2751,7 @@ int SrsOnMetaDataPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsOnMetaDataPacket::get_perfer_cid()
+int SrsOnMetaDataPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverConnection2;
 }
@@ -2811,7 +2811,7 @@ int SrsSetWindowAckSizePacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsSetWindowAckSizePacket::get_perfer_cid()
+int SrsSetWindowAckSizePacket::get_prefered_cid()
 {
 	return RTMP_CID_ProtocolControl;
 }
@@ -2853,7 +2853,7 @@ SrsAcknowledgementPacket::~SrsAcknowledgementPacket()
 {
 }
 
-int SrsAcknowledgementPacket::get_perfer_cid()
+int SrsAcknowledgementPacket::get_prefered_cid()
 {
 	return RTMP_CID_ProtocolControl;
 }
@@ -2918,7 +2918,7 @@ int SrsSetChunkSizePacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsSetChunkSizePacket::get_perfer_cid()
+int SrsSetChunkSizePacket::get_prefered_cid()
 {
 	return RTMP_CID_ProtocolControl;
 }
@@ -2960,7 +2960,7 @@ SrsSetPeerBandwidthPacket::~SrsSetPeerBandwidthPacket()
 {
 }
 
-int SrsSetPeerBandwidthPacket::get_perfer_cid()
+int SrsSetPeerBandwidthPacket::get_prefered_cid()
 {
 	return RTMP_CID_ProtocolControl;
 }
@@ -3034,7 +3034,7 @@ int SrsUserControlPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsUserControlPacket::get_perfer_cid()
+int SrsUserControlPacket::get_prefered_cid()
 {
 	return RTMP_CID_ProtocolControl;
 }

@@ -292,9 +292,9 @@ public:
 */
 public:
 	/**
-	* get the perfered cid(chunk stream id) which sendout over.
+	* get the prefered cid(chunk stream id) which sendout over.
 	*/
-	virtual int get_perfer_cid() = 0;
+	virtual int get_prefered_cid() = 0;
 	/**
 	* encode the packet to message payload bytes.
 	* @remark there exists empty packet, so maybe the payload is NULL.
@@ -338,9 +338,9 @@ public:
 */
 public:
 	/**
-	* get the perfered cid(chunk stream id) which sendout over.
+	* get the prefered cid(chunk stream id) which sendout over.
 	*/
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 	/**
 	* set the encoded packet to encode_packet() to payload.
 	* @stream_id, the id of stream which is created by createStream.
@@ -369,7 +369,7 @@ private:
 	{
 		char* payload;
 		int size;
-		int perfer_cid;
+		int prefered_cid;
 		int shared_count;
 		
 		SrsSharedPtr();
@@ -396,9 +396,9 @@ public:
 	virtual SrsSharedPtrMessage* copy();
 public:
 	/**
-	* get the perfered cid(chunk stream id) which sendout over.
+	* get the prefered cid(chunk stream id) which sendout over.
 	*/
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 	/**
 	* ignored.
 	* for shared message, nothing should be done.
@@ -441,7 +441,7 @@ public:
 * encode functions.
 */
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 	virtual int get_payload_length();
 public:
 	/**
@@ -491,7 +491,7 @@ public:
 public:
 	virtual int decode(SrsStream* stream);
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -521,7 +521,7 @@ public:
 public:
 	virtual int decode(SrsStream* stream);
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -555,7 +555,7 @@ public:
 public:
 	virtual int decode(SrsStream* stream);
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -585,7 +585,7 @@ public:
 public:
 	virtual int decode(SrsStream* stream);
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -637,7 +637,7 @@ public:
 	SrsFMLEStartResPacket(double _transaction_id);
 	virtual ~SrsFMLEStartResPacket();
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -674,7 +674,7 @@ public:
 public:
 	virtual int decode(SrsStream* stream);
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -736,7 +736,7 @@ public:
 public:
 	virtual int decode(SrsStream* stream);
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -765,7 +765,7 @@ public:
 	SrsPlayResPacket();
 	virtual ~SrsPlayResPacket();
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -793,7 +793,7 @@ public:
 	SrsOnBWDonePacket();
 	virtual ~SrsOnBWDonePacket();
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -823,7 +823,7 @@ public:
 	SrsOnStatusCallPacket();
 	virtual ~SrsOnStatusCallPacket();
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -851,7 +851,7 @@ public:
 	SrsOnStatusDataPacket();
 	virtual ~SrsOnStatusDataPacket();
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -880,7 +880,7 @@ public:
 	SrsSampleAccessPacket();
 	virtual ~SrsSampleAccessPacket();
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -911,7 +911,7 @@ public:
 public:
 	virtual int decode(SrsStream* stream);
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -941,7 +941,7 @@ public:
 public:
 	virtual int decode(SrsStream* stream);
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -969,7 +969,7 @@ public:
 	SrsAcknowledgementPacket();
 	virtual ~SrsAcknowledgementPacket();
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -999,7 +999,7 @@ public:
 public:
 	virtual int decode(SrsStream* stream);
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -1028,7 +1028,7 @@ public:
 	SrsSetPeerBandwidthPacket();
 	virtual ~SrsSetPeerBandwidthPacket();
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
@@ -1088,7 +1088,7 @@ public:
 public:
 	virtual int decode(SrsStream* stream);
 public:
-	virtual int get_perfer_cid();
+	virtual int get_prefered_cid();
 public:
 	virtual int get_message_type();
 protected:
