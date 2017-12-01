@@ -217,7 +217,7 @@ struct SrsMessageHeader
 	bool is_amf0_data();
 	bool is_amf3_command();
 	bool is_amf3_data();
-	bool is_window_ackledgement_size();
+	bool is_window_acknowledgement_size();
 	bool is_set_chunk_size();
 	bool is_user_control_message();
 };
@@ -934,7 +934,7 @@ protected:
 		return CLASS_NAME_STRING(SrsSetWindowAckSizePacket);
 	}
 public:
-	int32_t ackowledgement_window_size;
+	int32_t acknowledgement_window_size;
 public:
 	SrsSetWindowAckSizePacket();
 	virtual ~SrsSetWindowAckSizePacket();

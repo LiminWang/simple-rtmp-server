@@ -270,7 +270,7 @@ int SrsRtmpClient::connect_app(std::string app, std::string tc_url)
 		SrsCommonMessage* msg = new SrsCommonMessage();
 		SrsSetWindowAckSizePacket* pkt = new SrsSetWindowAckSizePacket();
 	
-		pkt->ackowledgement_window_size = 2500000;
+		pkt->acknowledgement_window_size = 2500000;
 		msg->set_packet(pkt, 0);
 		
 		if ((ret = protocol->send_message(msg)) != ERROR_SUCCESS) {
@@ -511,7 +511,7 @@ int SrsRtmp::set_window_ack_size(int ack_size)
 	SrsCommonMessage* msg = new SrsCommonMessage();
 	SrsSetWindowAckSizePacket* pkt = new SrsSetWindowAckSizePacket();
 	
-	pkt->ackowledgement_window_size = ack_size;
+	pkt->acknowledgement_window_size = ack_size;
 	msg->set_packet(pkt, 0);
 	
 	if ((ret = protocol->send_message(msg)) != ERROR_SUCCESS) {

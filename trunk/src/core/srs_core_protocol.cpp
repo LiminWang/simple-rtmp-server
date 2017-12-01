@@ -571,11 +571,11 @@ int SrsProtocol::on_recv_message(SrsCommonMessage* msg)
 			SrsSetWindowAckSizePacket* pkt = dynamic_cast<SrsSetWindowAckSizePacket*>(msg->get_packet());
 			srs_assert(pkt != NULL);
 			
-			if (pkt->ackowledgement_window_size > 0) {
-				in_ack_size.ack_window_size = pkt->ackowledgement_window_size;
-				srs_trace("set ack window size to %d", pkt->ackowledgement_window_size);
+			if (pkt->acknowledgement_window_size > 0) {
+				in_ack_size.ack_window_size = pkt->acknowledgement_window_size;
+				srs_trace("set ack window size to %d", pkt->acknowledgement_window_size);
 			} else {
-				srs_warn("ignored. set ack window size is %d", pkt->ackowledgement_window_size);
+				srs_warn("ignored. set ack window size is %d", pkt->acknowledgement_window_size);
 			}
 			break;
 		}
@@ -1126,7 +1126,7 @@ bool SrsMessageHeader::is_amf3_data()
 	return message_type == RTMP_MSG_AMF3DataMessage;
 }
 
-bool SrsMessageHeader::is_window_ackledgement_size()
+bool SrsMessageHeader::is_window_acknowledgement_size()
 {
 	return message_type == RTMP_MSG_WindowAcknowledgementSize;
 }
@@ -1321,7 +1321,7 @@ int SrsCommonMessage::decode_packet(SrsProtocol* protocol)
 		srs_verbose("start to decode user control message.");
 		packet = new SrsUserControlPacket();
 		return packet->decode(stream);
-	} else if(header.is_window_ackledgement_size()) {
+	} else if(header.is_window_acknowledgement_size()) {
 		srs_verbose("start to decode set ack window size message.");
 		packet = new SrsSetWindowAckSizePacket();
 		return packet->decode(stream);
@@ -2788,7 +2788,7 @@ int SrsOnMetaDataPacket::encode_packet(SrsStream* stream)
 
 SrsSetWindowAckSizePacket::SrsSetWindowAckSizePacket()
 {
-	ackowledgement_window_size = 0;
+	acknowledgement_window_size = 0;
 }
 
 SrsSetWindowAckSizePacket::~SrsSetWindowAckSizePacket()
@@ -2805,7 +2805,7 @@ int SrsSetWindowAckSizePacket::decode(SrsStream* stream)
 		return ret;
 	}
 	
-	ackowledgement_window_size = stream->read_4bytes();
+	acknowledgement_window_size = stream->read_4bytes();
 	srs_info("decode ack window size success");
 	
 	return ret;
@@ -2836,10 +2836,10 @@ int SrsSetWindowAckSizePacket::encode_packet(SrsStream* stream)
 		return ret;
 	}
 	
-	stream->write_4bytes(ackowledgement_window_size);
+	stream->write_4bytes(acknowledgement_window_size);
 	
 	srs_verbose("encode ack size packet "
-		"success. ack_size=%d", ackowledgement_window_size);
+		"success. ack_size=%d", acknowledgement_window_size);
 	
 	return ret;
 }
