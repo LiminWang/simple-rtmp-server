@@ -1078,7 +1078,7 @@ int SrsRtmp::identify_create_stream_client(SrsCreateStreamPacket* req, int strea
 			return ret;
 		}
 		if (dynamic_cast<SrsPublishPacket*>(pkt)) {
-			srs_info("identify client by publish, falsh publish.");
+			srs_info("identify client by publish, flash publish.");
 			return identify_flash_publish_client(
 				dynamic_cast<SrsPublishPacket*>(pkt), type, stream_name);
 		}
