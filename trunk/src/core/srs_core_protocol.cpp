@@ -176,7 +176,7 @@ messages.
 /**
 * 6.1. Chunk Format
 * Extended timestamp: 0 or 4 bytes
-* This field MUST be sent when the normal timsestamp is set to
+* This field MUST be sent when the normal timestamp is set to
 * 0xffffff, it MUST NOT be sent if the normal timestamp is set to
 * anything else. So for values less than 0xffffff the normal
 * timestamp field SHOULD be used in which case the extended timestamp
@@ -896,7 +896,7 @@ int SrsProtocol::read_message_header(SrsChunkStream* chunk, char fmt, int bh_siz
         chunk->extended_timestamp = (chunk->header.timestamp_delta >= RTMP_EXTENDED_TIMESTAMP);
         if (chunk->extended_timestamp) {
             // Extended timestamp: 0 or 4 bytes
-            // This field MUST be sent when the normal timsestamp is set to
+            // This field MUST be sent when the normal timestamp is set to
             // 0xffffff, it MUST NOT be sent if the normal timestamp is set to
             // anything else. So for values less than 0xffffff the normal
             // timestamp field SHOULD be used in which case the extended timestamp
