@@ -385,12 +385,12 @@ public:
 	/**
 	* set the shared payload.
 	* we will detach the payload of source,
-	* so ensure donot use it before.
+	* so ensure do not use it before.
 	*/
 	virtual int initialize(SrsCommonMessage* source);
 	/**
 	* set the shared payload.
-	* we will use the payload, donot use the payload of source.
+	* we will use the payload, do not use the payload of source.
 	*/
 	virtual int initialize(SrsCommonMessage* source, char* payload, int size);
 	virtual SrsSharedPtrMessage* copy();

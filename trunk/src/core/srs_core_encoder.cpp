@@ -128,7 +128,7 @@ int SrsFFMPEG::initialize(SrsRequest* req, SrsConfDirective* engine)
 	log_file += req->stream;
 	log_file += ".log";
 
-	// important: loop check, donot transcode again.
+	// important: loop check, do not transcode again.
 	std::vector<std::string>::iterator it;
 	it = std::find(_transcoded_url.begin(), _transcoded_url.end(), input);
 	if (it != _transcoded_url.end()) {
@@ -629,7 +629,7 @@ int SrsEncoder::parse_transcode(SrsRequest* req, SrsConfDirective* conf)
 		if ((ret = ffmpeg->initialize(req, engine)) != ERROR_SUCCESS) {
 			srs_freep(ffmpeg);
 			
-			// if got a loop, donot transcode the whole stream.
+			// if got a loop, do not transcode the whole stream.
 			if (ret == ERROR_ENCODER_LOOP) {
 				clear_engines();
 				break;

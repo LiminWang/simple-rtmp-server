@@ -339,7 +339,7 @@ class V1(object):
 '''
 main code start.
 '''
-# donot support use this module as library.
+# do not support use this module as library.
 if __name__ != "__main__":
     raise Exception("embed not support")
 

@@ -366,7 +366,7 @@ int64_t SrsHlsAacJitter::on_buffer_start(int64_t flv_pts, int sample_rate)
 	static int flv_sample_rates[] = {5512, 11025, 22050, 44100};
 	int flv_sample_rate = flv_sample_rates[sample_rate & 0x03];
 
-	// sync time set to 0, donot adjust the aac timestamp.
+	// sync time set to 0, do not adjust the aac timestamp.
 	if (!sync_ms) {
 		return flv_pts;
 	}
@@ -711,7 +711,7 @@ int SrsM3u8Muxer::segment_close()
 		segment_to_remove.push_back(segment);
 	}
 	
-	// refresh the m3u8, donot contains the removed ts
+	// refresh the m3u8, do not contains the removed ts
 	ret = refresh_m3u8();
 
 	// remove the ts file.
@@ -1273,7 +1273,7 @@ int SrsHls::on_audio(SrsSharedPtrMessage* audio)
 	
 	SrsAutoFree(SrsSharedPtrMessage, audio, false);
 	
-	// TODO: maybe donot need to demux the aac?
+	// TODO: maybe do not need to demux the aac?
 	if (!hls_enabled) {
 		return ret;
 	}
@@ -1316,7 +1316,7 @@ int SrsHls::on_video(SrsSharedPtrMessage* video)
 	
 	SrsAutoFree(SrsSharedPtrMessage, video, false);
 	
-	// TODO: maybe donot need to demux the avc?
+	// TODO: maybe do not need to demux the avc?
 	if (!hls_enabled) {
 		return ret;
 	}

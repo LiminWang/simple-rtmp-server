@@ -1354,7 +1354,7 @@ int SrsCommonMessage::get_perfer_cid()
 		return RTMP_CID_ProtocolControl;
 	}
 	
-	// we donot use the complex basic header,
+	// we do not use the complex basic header,
 	// ensure the basic header is 1bytes.
 	if (packet->get_perfer_cid() < 2) {
 		return packet->get_perfer_cid();

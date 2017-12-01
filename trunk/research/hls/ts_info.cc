@@ -1628,7 +1628,7 @@ int TSPayload::demux(TSContext* ctx, TSPacket* pkt, u_int8_t* start, u_int8_t* l
 			}
 			msg->append(p, last - p);
 			
-			// for PES_packet_length is 0, donot attach it.
+			// for PES_packet_length is 0, do not attach it.
 			if (msg->PES_packet_length > 0) {
 				msg->detach(ctx, pmsg);
 			}

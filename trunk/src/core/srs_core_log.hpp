@@ -51,7 +51,7 @@ public:
 // user must implements the LogContext and define a global instance.
 extern ILogContext* log_context;
 
-// donot print method
+// do not print method
 #if 0
     #define srs_verbose(msg, ...) printf("[%s][%d][verbs] ", log_context->format_time(), log_context->get_id());printf(msg, ##__VA_ARGS__);printf("\n")
     #define srs_info(msg, ...)    printf("[%s][%d][infos] ", log_context->format_time(), log_context->get_id());printf(msg, ##__VA_ARGS__);printf("\n")
