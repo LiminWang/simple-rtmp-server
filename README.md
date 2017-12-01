@@ -49,7 +49,7 @@ For example, use ffmpeg to publish:
 </pre>
 step 7: add server ip to client hosts as demo. <br/>
 <pre>
-# edit the folowing file:
+# edit the following file:
 # linux: /etc/hosts
 # windows: C:\Windows\System32\drivers\etc\hosts
 # where server ip is 192.168.2.111
