@@ -69,7 +69,7 @@ struct SrsRequest
 	virtual ~SrsRequest();
 	
 	/**
-	* disconvery vhost/app from tcUrl.
+	* discovery vhost/app from tcUrl.
 	*/
 	virtual int discovery_app();
 	virtual std::string get_stream_url();
