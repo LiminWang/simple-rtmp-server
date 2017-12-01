@@ -50,7 +50,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // 63000: 700ms, ts_tbn=90000
 #define SRS_HLS_DELAY 63000
 
-// the mpegts header specifed the video/audio pid.
+// the mpegts header specified the video/audio pid.
 #define TS_VIDEO_PID 256
 #define TS_AUDIO_PID 257
 
