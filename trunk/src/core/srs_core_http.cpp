@@ -380,13 +380,13 @@ int SrsHttpClient::parse_response_body_data(SrsHttpUri* uri, SrsSocket* skt, std
 int SrsHttpClient::on_headers_complete(http_parser* parser)
 {
     SrsHttpClient* obj = (SrsHttpClient*)parser->data;
-    obj->comple_header(parser);
+    obj->complete_header(parser);
     
     // see http_parser.c:1570, return 1 to skip body.
     return 1;
 }
 
-void SrsHttpClient::comple_header(http_parser* parser)
+void SrsHttpClient::complete_header(http_parser* parser)
 {
     // save the parser status when header parse completed.
     memcpy(&http_header, parser, sizeof(http_header));
