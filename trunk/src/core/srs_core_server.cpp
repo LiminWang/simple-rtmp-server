@@ -247,7 +247,7 @@ int SrsServer::cycle()
 {
 	int ret = ERROR_SUCCESS;
 	
-	// the deamon thread, update the time cache
+	// the daemon thread, update the time cache
 	while (true) {
 		st_usleep(SRS_TIME_RESOLUTION_MS * 1000);
 		srs_update_system_time_ms();
