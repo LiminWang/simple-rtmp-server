@@ -116,7 +116,7 @@ Stream Architecture:
 ### System Requirements
 Supported operating systems and hardware:
 * All Linux , both 32 and 64 bits
-* All handware.
+* All hardware.
 
 ### Summary
 1. simple: also stable enough.<br/>
