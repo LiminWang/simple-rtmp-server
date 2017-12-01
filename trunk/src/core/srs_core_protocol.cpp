@@ -979,7 +979,7 @@ int SrsProtocol::read_message_header(SrsChunkStream* chunk, char fmt, int bh_siz
 			return ret;
 		}
 
-		// ffmpeg/librtmp may donot send this filed, need to detect the value.
+		// ffmpeg/librtmp may donot send this field, need to detect the value.
 		// @see also: http://blog.csdn.net/win_lin/article/details/13363699
 		int32_t timestamp = 0x00;
         char* pp = (char*)&timestamp;
