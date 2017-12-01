@@ -1002,7 +1002,7 @@ int SrsProtocol::read_message_header(SrsChunkStream* chunk, char fmt, int bh_siz
 	
 	// valid message
 	if (chunk->header.payload_length < 0) {
-		ret = ERROR_RTMP_MSG_INVLIAD_SIZE;
+		ret = ERROR_RTMP_MSG_INVALID_SIZE;
 		srs_error("RTMP message size must not be negative. size=%d, ret=%d", 
 			chunk->header.payload_length, ret);
 		return ret;
