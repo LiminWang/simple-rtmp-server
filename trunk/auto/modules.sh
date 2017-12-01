@@ -3,7 +3,7 @@
 # $SRS_MAKEFILE the makefile name. ie. Makefile
 # $MODULE_DIR the module dir. ie. src/os/linux
 # $MODULE_ID the id of module. ie. CORE
-# $MODULE_DEPENDS array, the denpend MODULEs id. ie. (CORE OS)
+# $MODULE_DEPENDS array, the depend MODULEs id. ie. (CORE OS)
 # $ModuleLibIncs array, the depend 3rdpart library includes. ie. (objs/st-1.9/obj objs/libx264/obj)
 # $MODULE_FILES array, the head/cpp files of modules. ie. (public log)
 # 
