@@ -17,7 +17,7 @@ libaacplus-2.0.2.tar.gz
 libaacplus-patch-26410-800.zip (26410-800.zip)
 x264-snapshot-20131129-2245-stable.tar.bz2 (core.138)
     for srs to support live stream transcoding.
-    remark: we use *.zip for all linux plantform.
+    remark: we use *.zip for all linux platforms.
 
 tools/ccache-3.1.9.zip
     to fast build.

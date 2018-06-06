@@ -380,13 +380,13 @@ int SrsHttpClient::parse_response_body_data(SrsHttpUri* uri, SrsSocket* skt, std
 int SrsHttpClient::on_headers_complete(http_parser* parser)
 {
     SrsHttpClient* obj = (SrsHttpClient*)parser->data;
-    obj->comple_header(parser);
+    obj->complete_header(parser);
     
     // see http_parser.c:1570, return 1 to skip body.
     return 1;
 }
 
-void SrsHttpClient::comple_header(http_parser* parser)
+void SrsHttpClient::complete_header(http_parser* parser)
 {
     // save the parser status when header parse completed.
     memcpy(&http_header, parser, sizeof(http_header));
@@ -458,7 +458,7 @@ int SrsHttpHooks::on_connect(std::string url, int client_id, std::string ip, Srs
 	}
 	
 	if (res.empty() || res != SRS_HTTP_RESPONSE_OK) {
-		ret = ERROR_HTTP_DATA_INVLIAD;
+		ret = ERROR_HTTP_DATA_INVALID;
 		srs_error("http hook on_connect validate failed. "
 			"client_id=%d, res=%s, ret=%d", client_id, res.c_str(), ret);
 		return ret;
@@ -525,7 +525,7 @@ void SrsHttpHooks::on_close(std::string url, int client_id, std::string ip, SrsR
 	}
 	
 	if (res.empty() || res != SRS_HTTP_RESPONSE_OK) {
-		ret = ERROR_HTTP_DATA_INVLIAD;
+		ret = ERROR_HTTP_DATA_INVALID;
 		srs_warn("http hook on_close validate failed, ignored. "
 			"client_id=%d, res=%s, ret=%d", client_id, res.c_str(), ret);
 		return;
@@ -596,7 +596,7 @@ int SrsHttpHooks::on_publish(std::string url, int client_id, std::string ip, Srs
 	}
 	
 	if (res.empty() || res != SRS_HTTP_RESPONSE_OK) {
-		ret = ERROR_HTTP_DATA_INVLIAD;
+		ret = ERROR_HTTP_DATA_INVALID;
 		srs_error("http hook on_publish validate failed. "
 			"client_id=%d, res=%s, ret=%d", client_id, res.c_str(), ret);
 		return ret;
@@ -667,7 +667,7 @@ void SrsHttpHooks::on_unpublish(std::string url, int client_id, std::string ip, 
 	}
 	
 	if (res.empty() || res != SRS_HTTP_RESPONSE_OK) {
-		ret = ERROR_HTTP_DATA_INVLIAD;
+		ret = ERROR_HTTP_DATA_INVALID;
 		srs_warn("http hook on_unpublish validate failed, ignored. "
 			"client_id=%d, res=%s, ret=%d", client_id, res.c_str(), ret);
 		return;
@@ -738,7 +738,7 @@ int SrsHttpHooks::on_play(std::string url, int client_id, std::string ip, SrsReq
 	}
 	
 	if (res.empty() || res != SRS_HTTP_RESPONSE_OK) {
-		ret = ERROR_HTTP_DATA_INVLIAD;
+		ret = ERROR_HTTP_DATA_INVALID;
 		srs_error("http hook on_play validate failed. "
 			"client_id=%d, res=%s, ret=%d", client_id, res.c_str(), ret);
 		return ret;
@@ -809,7 +809,7 @@ void SrsHttpHooks::on_stop(std::string url, int client_id, std::string ip, SrsRe
 	}
 	
 	if (res.empty() || res != SRS_HTTP_RESPONSE_OK) {
-		ret = ERROR_HTTP_DATA_INVLIAD;
+		ret = ERROR_HTTP_DATA_INVALID;
 		srs_warn("http hook on_stop validate failed, ignored. "
 			"client_id=%d, res=%s, ret=%d", client_id, res.c_str(), ret);
 		return;

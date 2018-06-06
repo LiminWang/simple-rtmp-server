@@ -105,7 +105,7 @@ private:
     virtual int parse_response_body_data(SrsHttpUri* uri, SrsSocket* skt, std::string* response, size_t body_left, const void* buf, size_t size);
 private:
     static int on_headers_complete(http_parser* parser);
-    virtual void comple_header(http_parser* parser);
+    virtual void complete_header(http_parser* parser);
 };
 
 /**

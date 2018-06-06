@@ -21,8 +21,8 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef SRS_CORE_HANDSHKAE_HPP
-#define SRS_CORE_HANDSHKAE_HPP
+#ifndef SRS_CORE_HANDSHAKE_HPP
+#define SRS_CORE_HANDSHAKE_HPP
 
 /*
 #include <srs_core_complex_handshake.hpp>
@@ -63,7 +63,7 @@ public:
 	virtual ~SrsComplexHandshake();
 public:
 	/**
-	* complex hanshake.
+	* complex handshake.
 	* @_c1, size of c1 must be 1536.
 	* @remark, user must free the c1.
 	* @return user must:

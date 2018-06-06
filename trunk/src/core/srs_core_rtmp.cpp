@@ -270,7 +270,7 @@ int SrsRtmpClient::connect_app(std::string app, std::string tc_url)
 		SrsCommonMessage* msg = new SrsCommonMessage();
 		SrsSetWindowAckSizePacket* pkt = new SrsSetWindowAckSizePacket();
 	
-		pkt->ackowledgement_window_size = 2500000;
+		pkt->acknowledgement_window_size = 2500000;
 		msg->set_packet(pkt, 0);
 		
 		if ((ret = protocol->send_message(msg)) != ERROR_SUCCESS) {
@@ -511,7 +511,7 @@ int SrsRtmp::set_window_ack_size(int ack_size)
 	SrsCommonMessage* msg = new SrsCommonMessage();
 	SrsSetWindowAckSizePacket* pkt = new SrsSetWindowAckSizePacket();
 	
-	pkt->ackowledgement_window_size = ack_size;
+	pkt->acknowledgement_window_size = ack_size;
 	msg->set_packet(pkt, 0);
 	
 	if ((ret = protocol->send_message(msg)) != ERROR_SUCCESS) {
@@ -813,7 +813,7 @@ int SrsRtmp::on_play_client_pause(int stream_id, bool is_pause)
 			}
 			srs_info("send onStatus(NetStream.Unpause.Notify) message success.");
 		}
-		// StreanBegin
+		// StreamBegin
 		if (true) {
 			SrsCommonMessage* msg = new SrsCommonMessage();
 			SrsUserControlPacket* pkt = new SrsUserControlPacket();
@@ -823,10 +823,10 @@ int SrsRtmp::on_play_client_pause(int stream_id, bool is_pause)
 			msg->set_packet(pkt, 0);
 			
 			if ((ret = protocol->send_message(msg)) != ERROR_SUCCESS) {
-				srs_error("send PCUC(StreanBegin) message failed. ret=%d", ret);
+				srs_error("send PCUC(StreamBegin) message failed. ret=%d", ret);
 				return ret;
 			}
-			srs_info("send PCUC(StreanBegin) message success.");
+			srs_info("send PCUC(StreamBegin) message success.");
 		}
 	}
 	
@@ -1078,7 +1078,7 @@ int SrsRtmp::identify_create_stream_client(SrsCreateStreamPacket* req, int strea
 			return ret;
 		}
 		if (dynamic_cast<SrsPublishPacket*>(pkt)) {
-			srs_info("identify client by publish, falsh publish.");
+			srs_info("identify client by publish, flash publish.");
 			return identify_flash_publish_client(
 				dynamic_cast<SrsPublishPacket*>(pkt), type, stream_name);
 		}

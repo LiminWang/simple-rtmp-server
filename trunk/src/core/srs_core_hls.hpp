@@ -68,8 +68,8 @@ public:
 	*/
 	virtual int64_t on_buffer_start(int64_t flv_pts, int sample_rate);
 	/**
-	* when buffer continue, muxer donot write to file,
-	* the audio buffer continue grow and donot need a pts,
+	* when buffer continue, muxer do not write to file,
+	* the audio buffer continue grow and do not need a pts,
 	* for the ts audio PES packet only has one pts at the first time.
 	*/
 	virtual void on_buffer_continue();

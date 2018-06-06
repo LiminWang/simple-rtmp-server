@@ -23,7 +23,7 @@ step 2: start srs <br/>
 <pre>
 ./objs/simple_rtmp_server -c conf/srs.conf
 </pre>
-step 3(optinal): start srs listen at 19350 to forward to<br/>
+step 3(optimal): start srs listen at 19350 to forward to<br/>
 <pre>
 ./objs/simple_rtmp_server -c conf/srs.19350.conf
 </pre>
@@ -49,7 +49,7 @@ For example, use ffmpeg to publish:
 </pre>
 step 7: add server ip to client hosts as demo. <br/>
 <pre>
-# edit the folowing file:
+# edit the following file:
 # linux: /etc/hosts
 # windows: C:\Windows\System32\drivers\etc\hosts
 # where server ip is 192.168.2.111
@@ -107,7 +107,7 @@ Stream Architecture:
 +-----------+-------------------------+----------------+
 | (FMLE,    |   +-> RTMP protocol ----+-> Flash Player |
 | FFMPEG, --+-> +-> HLS/NGINX --------+-> m3u8 player  |
-| Flash,    |   +-> Fowarder ---------+-> RTMP Server  |
+| Flash,    |   +-> Forwarder --------+-> RTMP Server  |
 | XSPLIT,   |   +-> Transcoder -------+-> RTMP Server  |
 |  ...)     |   +-> DVR --------------+-> FILE         |
 +-----------+-------------------------+----------------+
@@ -116,7 +116,7 @@ Stream Architecture:
 ### System Requirements
 Supported operating systems and hardware:
 * All Linux , both 32 and 64 bits
-* All handware.
+* All hardware.
 
 ### Summary
 1. simple: also stable enough.<br/>
@@ -131,7 +131,7 @@ Supported operating systems and hardware:
 10. support cache last gop for flash player to fast startup.<br/>
 11. support listen at multiple ports.<br/>
 12. support long time(>4.6hours) publish/play.<br/>
-13. high performace, 1800 connections(500kbps), 900Mbps, CPU 90.2%, 41MB<br/>
+13. high performance, 1800 connections(500kbps), 900Mbps, CPU 90.2%, 41MB<br/>
 14. support forward publish stream to build active-standby cluster.<br/>
 15. support broadcast by forward the stream to other servers(origin/edge).<br/>
 16. support live stream transcoding by ffmpeg.<br/>
@@ -146,7 +146,7 @@ Supported operating systems and hardware:
 25. [plan] support dvr(record live to vod file)<br/>
 26. [plan] support FMS edge protocol<br/>
 27. [plan] support encryption: RTMPE/RTMPS, HLS DRM<br/>
-28. [plan] support RTMPT, http to tranverse firewalls<br/>
+28. [plan] support RTMPT, http to traverse firewalls<br/>
 29. [plan] support file source, transcoding file to live stream<br/>
 
 ### Performance

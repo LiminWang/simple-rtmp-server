@@ -142,7 +142,7 @@ void SrsListener::listen_cycle()
 	    
 	    if(client_stfd == NULL){
 	        // ignore error.
-	        srs_warn("ignore accept thread stoppped for accept client error");
+	        srs_warn("ignore accept thread stopped for accept client error");
 	        continue;
 	    }
 	    srs_verbose("get a client. fd=%d", st_netfd_fileno(client_stfd));
@@ -247,7 +247,7 @@ int SrsServer::cycle()
 {
 	int ret = ERROR_SUCCESS;
 	
-	// the deamon thread, update the time cache
+	// the daemon thread, update the time cache
 	while (true) {
 		st_usleep(SRS_TIME_RESOLUTION_MS * 1000);
 		srs_update_system_time_ms();

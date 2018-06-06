@@ -50,7 +50,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // 63000: 700ms, ts_tbn=90000
 #define SRS_HLS_DELAY 63000
 
-// the mpegts header specifed the video/audio pid.
+// the mpegts header specified the video/audio pid.
 #define TS_VIDEO_PID 256
 #define TS_AUDIO_PID 257
 
@@ -184,14 +184,14 @@ public:
 			*p++ = frame->pid;
 			
 			// transport_scrambling_control; //2bits
-			// adaption_field_control; //2bits, 0x01: PayloadOnly
+			// adaptation_field_control; //2bits, 0x01: PayloadOnly
 			// continuity_counter; //4bits
 			*p++ = 0x10 | (frame->cc & 0x0f);
 			
 			if (first) {
 				first = false;
 				if (frame->key) {
-					p[-1] |= 0x20; // Both Adaption and Payload
+					p[-1] |= 0x20; // Both Adaptation and Payload
 					*p++ = 7;    // size
 					*p++ = 0x50; // random access + PCR
 					p = write_pcr(p, frame->dts - SRS_HLS_DELAY);
@@ -288,34 +288,34 @@ private:
 		// insert the stuff bytes before PES body
 		int stuff_size = (body_size - in_size);
 		
-		// adaption_field_control; //2bits
+		// adaptation_field_control; //2bits
 		if (packet[3] & 0x20) {
 			//  has adaptation
-			// packet[4]: adaption_field_length
-			// packet[5]: adaption field data
+			// packet[4]: adaptation_field_length
+			// packet[5]: adaptation field data
 			// base: start of PES body
 			char* base = &packet[5] + packet[4];
 			int len = p - base;
 			p = (char*)memmove(base + stuff_size, base, len) + len;
-			// increase the adaption field size.
+			// increase the adaptation field size.
 			packet[4] += stuff_size;
 			
 			return p;
 		}
 
-		// create adaption field.
-		// adaption_field_control; //2bits
+		// create adaptation field.
+		// adaptation_field_control; //2bits
 		packet[3] |= 0x20;
 		// base: start of PES body
 		char* base = &packet[4];
 		int len = p - base;
 		p = (char*)memmove(base + stuff_size, base, len) + len;
-		// adaption_field_length; //8bits
+		// adaptation_field_length; //8bits
 		packet[4] = (stuff_size - 1);
 		if (stuff_size >= 2) {
-			// adaption field flags.
+			// adaptation field flags.
 			packet[5] = 0;
-			// adaption data.
+			// adaptation data.
 			if (stuff_size > 2) {
 				memset(&packet[6], 0xff, stuff_size - 2);
 			}
@@ -366,7 +366,7 @@ int64_t SrsHlsAacJitter::on_buffer_start(int64_t flv_pts, int sample_rate)
 	static int flv_sample_rates[] = {5512, 11025, 22050, 44100};
 	int flv_sample_rate = flv_sample_rates[sample_rate & 0x03];
 
-	// sync time set to 0, donot adjust the aac timestamp.
+	// sync time set to 0, do not adjust the aac timestamp.
 	if (!sync_ms) {
 		return flv_pts;
 	}
@@ -711,7 +711,7 @@ int SrsM3u8Muxer::segment_close()
 		segment_to_remove.push_back(segment);
 	}
 	
-	// refresh the m3u8, donot contains the removed ts
+	// refresh the m3u8, do not contains the removed ts
 	ret = refresh_m3u8();
 
 	// remove the ts file.
@@ -1220,13 +1220,13 @@ int SrsHls::on_meta_data(SrsOnMetaDataPacket* metadata)
 	int ret = ERROR_SUCCESS;
 
 	if (!metadata || !metadata->metadata) {
-		srs_trace("no metadata persent, hls ignored it.");
+		srs_trace("no metadata present, hls ignored it.");
 		return ret;
 	}
 	
 	SrsAmf0Object* obj = metadata->metadata;
 	if (obj->size() <= 0) {
-		srs_trace("no metadata persent, hls ignored it.");
+		srs_trace("no metadata present, hls ignored it.");
 		return ret;
 	}
 	
@@ -1273,7 +1273,7 @@ int SrsHls::on_audio(SrsSharedPtrMessage* audio)
 	
 	SrsAutoFree(SrsSharedPtrMessage, audio, false);
 	
-	// TODO: maybe donot need to demux the aac?
+	// TODO: maybe do not need to demux the aac?
 	if (!hls_enabled) {
 		return ret;
 	}
@@ -1316,7 +1316,7 @@ int SrsHls::on_video(SrsSharedPtrMessage* video)
 	
 	SrsAutoFree(SrsSharedPtrMessage, video, false);
 	
-	// TODO: maybe donot need to demux the avc?
+	// TODO: maybe do not need to demux the avc?
 	if (!hls_enabled) {
 		return ret;
 	}

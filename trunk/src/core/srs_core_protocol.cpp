@@ -176,7 +176,7 @@ messages.
 /**
 * 6.1. Chunk Format
 * Extended timestamp: 0 or 4 bytes
-* This field MUST be sent when the normal timsestamp is set to
+* This field MUST be sent when the normal timestamp is set to
 * 0xffffff, it MUST NOT be sent if the normal timestamp is set to
 * anything else. So for values less than 0xffffff the normal
 * timestamp field SHOULD be used in which case the extended timestamp
@@ -234,7 +234,7 @@ messages.
 #define RTMP_CID_OverStream 0x05
 /**
 * the stream message(amf0/amf3), over NetStream, the midst state(we guess).
-* rarely used, e.g. play("mp4:mystram.f4v")
+* rarely used, e.g. play("mp4:mystream.f4v")
 */
 #define RTMP_CID_OverStream2 0x08
 /**
@@ -251,7 +251,7 @@ messages.
 /****************************************************************************
 *****************************************************************************
 ****************************************************************************/
-// when got a messae header, increase recv timeout to got an entire message.
+// when got a message header, increase recv timeout to got an entire message.
 #define SRS_MIN_RECV_TIMEOUT_US 3000
 
 SrsProtocol::AckWindowSize::AckWindowSize()
@@ -283,13 +283,13 @@ SrsProtocol::~SrsProtocol()
 	srs_freep(skt);
 }
 
-std::string SrsProtocol::get_request_name(double transcationId)
+std::string SrsProtocol::get_request_name(double transactionId)
 {
-	if (requests.find(transcationId) == requests.end()) {
+	if (requests.find(transactionId) == requests.end()) {
 		return "";
 	}
 	
-	return requests[transcationId];
+	return requests[transactionId];
 }
 
 void SrsProtocol::set_recv_timeout(int64_t timeout_us)
@@ -396,7 +396,7 @@ int SrsProtocol::send_message(ISrsMessage* msg)
 		if (p == (char*)msg->payload) {
 			// write new chunk stream header, fmt is 0
 			pheader = out_header_fmt0;
-			*pheader++ = 0x00 | (msg->get_perfer_cid() & 0x3F);
+			*pheader++ = 0x00 | (msg->get_prefered_cid() & 0x3F);
 			
 		    // chunk message header, 11 bytes
 		    // timestamp, 3bytes, big-endian
@@ -441,7 +441,7 @@ int SrsProtocol::send_message(ISrsMessage* msg)
 		} else {
 			// write no message header chunk stream, fmt is 3
 			pheader = out_header_fmt3;
-			*pheader++ = 0xC0 | (msg->get_perfer_cid() & 0x3F);
+			*pheader++ = 0xC0 | (msg->get_prefered_cid() & 0x3F);
 		    
 		    // chunk extended timestamp header, 0 or 4 bytes, big-endian
 		    // 6.1.3. Extended Timestamp
@@ -571,11 +571,11 @@ int SrsProtocol::on_recv_message(SrsCommonMessage* msg)
 			SrsSetWindowAckSizePacket* pkt = dynamic_cast<SrsSetWindowAckSizePacket*>(msg->get_packet());
 			srs_assert(pkt != NULL);
 			
-			if (pkt->ackowledgement_window_size > 0) {
-				in_ack_size.ack_window_size = pkt->ackowledgement_window_size;
-				srs_trace("set ack window size to %d", pkt->ackowledgement_window_size);
+			if (pkt->acknowledgement_window_size > 0) {
+				in_ack_size.ack_window_size = pkt->acknowledgement_window_size;
+				srs_trace("set ack window size to %d", pkt->acknowledgement_window_size);
 			} else {
-				srs_warn("ignored. set ack window size is %d", pkt->ackowledgement_window_size);
+				srs_warn("ignored. set ack window size is %d", pkt->acknowledgement_window_size);
 			}
 			break;
 		}
@@ -896,7 +896,7 @@ int SrsProtocol::read_message_header(SrsChunkStream* chunk, char fmt, int bh_siz
         chunk->extended_timestamp = (chunk->header.timestamp_delta >= RTMP_EXTENDED_TIMESTAMP);
         if (chunk->extended_timestamp) {
             // Extended timestamp: 0 or 4 bytes
-            // This field MUST be sent when the normal timsestamp is set to
+            // This field MUST be sent when the normal timestamp is set to
             // 0xffffff, it MUST NOT be sent if the normal timestamp is set to
             // anything else. So for values less than 0xffffff the normal
             // timestamp field SHOULD be used in which case the extended timestamp
@@ -979,7 +979,7 @@ int SrsProtocol::read_message_header(SrsChunkStream* chunk, char fmt, int bh_siz
 			return ret;
 		}
 
-		// ffmpeg/librtmp may donot send this filed, need to detect the value.
+		// ffmpeg/librtmp may not send this field, need to detect the value.
 		// @see also: http://blog.csdn.net/win_lin/article/details/13363699
 		int32_t timestamp = 0x00;
         char* pp = (char*)&timestamp;
@@ -1002,7 +1002,7 @@ int SrsProtocol::read_message_header(SrsChunkStream* chunk, char fmt, int bh_siz
 	
 	// valid message
 	if (chunk->header.payload_length < 0) {
-		ret = ERROR_RTMP_MSG_INVLIAD_SIZE;
+		ret = ERROR_RTMP_MSG_INVALID_SIZE;
 		srs_error("RTMP message size must not be negative. size=%d, ret=%d", 
 			chunk->header.payload_length, ret);
 		return ret;
@@ -1126,7 +1126,7 @@ bool SrsMessageHeader::is_amf3_data()
 	return message_type == RTMP_MSG_AMF3DataMessage;
 }
 
-bool SrsMessageHeader::is_window_ackledgement_size()
+bool SrsMessageHeader::is_window_acknowledgement_size()
 {
 	return message_type == RTMP_MSG_WindowAcknowledgementSize;
 }
@@ -1174,7 +1174,7 @@ SrsCommonMessage::SrsCommonMessage()
 SrsCommonMessage::~SrsCommonMessage()
 {	
 	// we must directly free the ptrs,
-	// nevery use the virtual functions to delete,
+	// never use the virtual functions to delete,
 	// for in the destructor, the virtual functions is disabled.
 	
 	srs_freepa(payload);
@@ -1235,10 +1235,10 @@ int SrsCommonMessage::decode_packet(SrsProtocol* protocol)
 		if (command == RTMP_AMF0_COMMAND_RESULT || command == RTMP_AMF0_COMMAND_ERROR) {
 			double transactionId = 0.0;
 			if ((ret = srs_amf0_read_number(stream, transactionId)) != ERROR_SUCCESS) {
-				srs_error("decode AMF0/AMF3 transcationId failed. ret=%d", ret);
+				srs_error("decode AMF0/AMF3 transactionId failed. ret=%d", ret);
 				return ret;
 			}
-			srs_verbose("AMF0/AMF3 command id, transcationId=%.2f", transactionId);
+			srs_verbose("AMF0/AMF3 command id, transactionId=%.2f", transactionId);
 			
 			// reset stream, for header read completed.
 			stream->reset();
@@ -1321,7 +1321,7 @@ int SrsCommonMessage::decode_packet(SrsProtocol* protocol)
 		srs_verbose("start to decode user control message.");
 		packet = new SrsUserControlPacket();
 		return packet->decode(stream);
-	} else if(header.is_window_ackledgement_size()) {
+	} else if(header.is_window_acknowledgement_size()) {
 		srs_verbose("start to decode set ack window size message.");
 		packet = new SrsSetWindowAckSizePacket();
 		return packet->decode(stream);
@@ -1348,19 +1348,19 @@ SrsPacket* SrsCommonMessage::get_packet()
 	return packet;
 }
 
-int SrsCommonMessage::get_perfer_cid()
+int SrsCommonMessage::get_prefered_cid()
 {
 	if (!packet) {
 		return RTMP_CID_ProtocolControl;
 	}
 	
-	// we donot use the complex basic header,
+	// we do not use the complex basic header,
 	// ensure the basic header is 1bytes.
-	if (packet->get_perfer_cid() < 2) {
-		return packet->get_perfer_cid();
+	if (packet->get_prefered_cid() < 2) {
+		return packet->get_prefered_cid();
 	}
 	
-	return packet->get_perfer_cid();
+	return packet->get_prefered_cid();
 }
 
 void SrsCommonMessage::set_packet(SrsPacket* pkt, int stream_id)
@@ -1399,7 +1399,7 @@ SrsSharedPtrMessage::SrsSharedPtr::SrsSharedPtr()
 {
 	payload = NULL;
 	size = 0;
-	perfer_cid = 0;
+	prefered_cid = 0;
 	shared_count = 0;
 }
 
@@ -1467,11 +1467,11 @@ int SrsSharedPtrMessage::initialize(SrsCommonMessage* source, char* payload, int
 	ptr->size = size;
 	
 	if (source->header.is_video()) {
-		ptr->perfer_cid = RTMP_CID_Video;
+		ptr->prefered_cid = RTMP_CID_Video;
 	} else if (source->header.is_audio()) {
-		ptr->perfer_cid = RTMP_CID_Audio;
+		ptr->prefered_cid = RTMP_CID_Audio;
 	} else {
-		ptr->perfer_cid = RTMP_CID_OverConnection2;
+		ptr->prefered_cid = RTMP_CID_OverConnection2;
 	}
 	
 	super::payload = (int8_t*)ptr->payload;
@@ -1501,13 +1501,13 @@ SrsSharedPtrMessage* SrsSharedPtrMessage::copy()
 	return copy;
 }
 
-int SrsSharedPtrMessage::get_perfer_cid()
+int SrsSharedPtrMessage::get_prefered_cid()
 {
 	if (!ptr) {
 		return 0;
 	}
 	
-	return ptr->perfer_cid;
+	return ptr->prefered_cid;
 }
 
 int SrsSharedPtrMessage::encode_packet()
@@ -1532,12 +1532,12 @@ int SrsPacket::decode(SrsStream* stream)
 
 	ret = ERROR_SYSTEM_PACKET_INVALID;
 	srs_error("current packet is not support to decode. "
-		"paket=%s, ret=%d", get_class_name(), ret);
+		"packet=%s, ret=%d", get_class_name(), ret);
 	
 	return ret;
 }
 
-int SrsPacket::get_perfer_cid()
+int SrsPacket::get_prefered_cid()
 {
 	return 0;
 }
@@ -1597,7 +1597,7 @@ int SrsPacket::encode_packet(SrsStream* stream)
 
 	ret = ERROR_SYSTEM_PACKET_INVALID;
 	srs_error("current packet is not support to encode. "
-		"paket=%s, ret=%d", get_class_name(), ret);
+		"packet=%s, ret=%d", get_class_name(), ret);
 	
 	return ret;
 }
@@ -1655,7 +1655,7 @@ int SrsConnectAppPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsConnectAppPacket::get_perfer_cid()
+int SrsConnectAppPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverConnection;
 }
@@ -1763,7 +1763,7 @@ int SrsConnectAppResPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsConnectAppResPacket::get_perfer_cid()
+int SrsConnectAppResPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverConnection;
 }
@@ -1854,7 +1854,7 @@ int SrsCreateStreamPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsCreateStreamPacket::get_perfer_cid()
+int SrsCreateStreamPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverConnection;
 }
@@ -1945,7 +1945,7 @@ int SrsCreateStreamResPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsCreateStreamResPacket::get_perfer_cid()
+int SrsCreateStreamResPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverConnection;
 }
@@ -2060,7 +2060,7 @@ SrsFMLEStartResPacket::~SrsFMLEStartResPacket()
 	srs_freep(args);
 }
 
-int SrsFMLEStartResPacket::get_perfer_cid()
+int SrsFMLEStartResPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverConnection;
 }
@@ -2163,7 +2163,7 @@ int SrsPublishPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsPublishPacket::get_perfer_cid()
+int SrsPublishPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverStream;
 }
@@ -2338,7 +2338,7 @@ int SrsPlayPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsPlayPacket::get_perfer_cid()
+int SrsPlayPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverStream;
 }
@@ -2421,7 +2421,7 @@ SrsPlayResPacket::~SrsPlayResPacket()
 	srs_freep(desc);
 }
 
-int SrsPlayResPacket::get_perfer_cid()
+int SrsPlayResPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverStream;
 }
@@ -2483,7 +2483,7 @@ SrsOnBWDonePacket::~SrsOnBWDonePacket()
 	srs_freep(args);
 }
 
-int SrsOnBWDonePacket::get_perfer_cid()
+int SrsOnBWDonePacket::get_prefered_cid()
 {
 	return RTMP_CID_OverConnection;
 }
@@ -2540,7 +2540,7 @@ SrsOnStatusCallPacket::~SrsOnStatusCallPacket()
 	srs_freep(data);
 }
 
-int SrsOnStatusCallPacket::get_perfer_cid()
+int SrsOnStatusCallPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverStream;
 }
@@ -2600,7 +2600,7 @@ SrsOnStatusDataPacket::~SrsOnStatusDataPacket()
 	srs_freep(data);
 }
 
-int SrsOnStatusDataPacket::get_perfer_cid()
+int SrsOnStatusDataPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverStream;
 }
@@ -2647,7 +2647,7 @@ SrsSampleAccessPacket::~SrsSampleAccessPacket()
 {
 }
 
-int SrsSampleAccessPacket::get_perfer_cid()
+int SrsSampleAccessPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverStream;
 }
@@ -2751,7 +2751,7 @@ int SrsOnMetaDataPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsOnMetaDataPacket::get_perfer_cid()
+int SrsOnMetaDataPacket::get_prefered_cid()
 {
 	return RTMP_CID_OverConnection2;
 }
@@ -2788,7 +2788,7 @@ int SrsOnMetaDataPacket::encode_packet(SrsStream* stream)
 
 SrsSetWindowAckSizePacket::SrsSetWindowAckSizePacket()
 {
-	ackowledgement_window_size = 0;
+	acknowledgement_window_size = 0;
 }
 
 SrsSetWindowAckSizePacket::~SrsSetWindowAckSizePacket()
@@ -2805,13 +2805,13 @@ int SrsSetWindowAckSizePacket::decode(SrsStream* stream)
 		return ret;
 	}
 	
-	ackowledgement_window_size = stream->read_4bytes();
+	acknowledgement_window_size = stream->read_4bytes();
 	srs_info("decode ack window size success");
 	
 	return ret;
 }
 
-int SrsSetWindowAckSizePacket::get_perfer_cid()
+int SrsSetWindowAckSizePacket::get_prefered_cid()
 {
 	return RTMP_CID_ProtocolControl;
 }
@@ -2836,10 +2836,10 @@ int SrsSetWindowAckSizePacket::encode_packet(SrsStream* stream)
 		return ret;
 	}
 	
-	stream->write_4bytes(ackowledgement_window_size);
+	stream->write_4bytes(acknowledgement_window_size);
 	
 	srs_verbose("encode ack size packet "
-		"success. ack_size=%d", ackowledgement_window_size);
+		"success. ack_size=%d", acknowledgement_window_size);
 	
 	return ret;
 }
@@ -2853,7 +2853,7 @@ SrsAcknowledgementPacket::~SrsAcknowledgementPacket()
 {
 }
 
-int SrsAcknowledgementPacket::get_perfer_cid()
+int SrsAcknowledgementPacket::get_prefered_cid()
 {
 	return RTMP_CID_ProtocolControl;
 }
@@ -2918,7 +2918,7 @@ int SrsSetChunkSizePacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsSetChunkSizePacket::get_perfer_cid()
+int SrsSetChunkSizePacket::get_prefered_cid()
 {
 	return RTMP_CID_ProtocolControl;
 }
@@ -2960,7 +2960,7 @@ SrsSetPeerBandwidthPacket::~SrsSetPeerBandwidthPacket()
 {
 }
 
-int SrsSetPeerBandwidthPacket::get_perfer_cid()
+int SrsSetPeerBandwidthPacket::get_prefered_cid()
 {
 	return RTMP_CID_ProtocolControl;
 }
@@ -3034,7 +3034,7 @@ int SrsUserControlPacket::decode(SrsStream* stream)
 	return ret;
 }
 
-int SrsUserControlPacket::get_perfer_cid()
+int SrsUserControlPacket::get_prefered_cid()
 {
 	return RTMP_CID_ProtocolControl;
 }

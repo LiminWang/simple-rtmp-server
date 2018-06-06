@@ -328,7 +328,7 @@ int SrsCodec::video_avc_demux(int8_t* data, int size, SrsCodecSample* sample)
 		
 		if (!stream->require(6)) {
 			ret = ERROR_HLS_DECODE_ERROR;
-			srs_error("hls decode video avc sequenc header failed. ret=%d", ret);
+			srs_error("hls decode video avc sequence header failed. ret=%d", ret);
 			return ret;
 		}
 		//int8_t configurationVersion = stream->read_1bytes();
@@ -344,25 +344,25 @@ int SrsCodec::video_avc_demux(int8_t* data, int size, SrsCodecSample* sample)
 		// 1 sps
 		if (!stream->require(1)) {
 			ret = ERROR_HLS_DECODE_ERROR;
-			srs_error("hls decode video avc sequenc header sps failed. ret=%d", ret);
+			srs_error("hls decode video avc sequence header sps failed. ret=%d", ret);
 			return ret;
 		}
 		int8_t numOfSequenceParameterSets = stream->read_1bytes();
 		numOfSequenceParameterSets &= 0x1f;
 		if (numOfSequenceParameterSets != 1) {
 			ret = ERROR_HLS_DECODE_ERROR;
-			srs_error("hls decode video avc sequenc header sps failed. ret=%d", ret);
+			srs_error("hls decode video avc sequence header sps failed. ret=%d", ret);
 			return ret;
 		}
 		if (!stream->require(2)) {
 			ret = ERROR_HLS_DECODE_ERROR;
-			srs_error("hls decode video avc sequenc header sps size failed. ret=%d", ret);
+			srs_error("hls decode video avc sequence header sps size failed. ret=%d", ret);
 			return ret;
 		}
 		sequenceParameterSetLength = stream->read_2bytes();
 		if (!stream->require(sequenceParameterSetLength)) {
 			ret = ERROR_HLS_DECODE_ERROR;
-			srs_error("hls decode video avc sequenc header sps data failed. ret=%d", ret);
+			srs_error("hls decode video avc sequence header sps data failed. ret=%d", ret);
 			return ret;
 		}
 		if (sequenceParameterSetLength > 0) {
@@ -374,25 +374,25 @@ int SrsCodec::video_avc_demux(int8_t* data, int size, SrsCodecSample* sample)
 		// 1 pps
 		if (!stream->require(1)) {
 			ret = ERROR_HLS_DECODE_ERROR;
-			srs_error("hls decode video avc sequenc header pps failed. ret=%d", ret);
+			srs_error("hls decode video avc sequence header pps failed. ret=%d", ret);
 			return ret;
 		}
 		int8_t numOfPictureParameterSets = stream->read_1bytes();
 		numOfPictureParameterSets &= 0x1f;
 		if (numOfPictureParameterSets != 1) {
 			ret = ERROR_HLS_DECODE_ERROR;
-			srs_error("hls decode video avc sequenc header pps failed. ret=%d", ret);
+			srs_error("hls decode video avc sequence header pps failed. ret=%d", ret);
 			return ret;
 		}
 		if (!stream->require(2)) {
 			ret = ERROR_HLS_DECODE_ERROR;
-			srs_error("hls decode video avc sequenc header pps size failed. ret=%d", ret);
+			srs_error("hls decode video avc sequence header pps size failed. ret=%d", ret);
 			return ret;
 		}
 		pictureParameterSetLength = stream->read_2bytes();
 		if (!stream->require(pictureParameterSetLength)) {
 			ret = ERROR_HLS_DECODE_ERROR;
-			srs_error("hls decode video avc sequenc header pps data failed. ret=%d", ret);
+			srs_error("hls decode video avc sequence header pps data failed. ret=%d", ret);
 			return ret;
 		}
 		if (pictureParameterSetLength > 0) {

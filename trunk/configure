@@ -157,7 +157,7 @@ fi
 if [ $SRS_SSL = YES ]; then
     echo -e "${GREEN}rtmp complex handshake is enabled${BLACK}"
 else
-    echo -e "${YELLOW}warning: without rtmp complex handshake support, donot support h264/aac to adobe flash player${BLACK}"
+    echo -e "${YELLOW}warning: without rtmp complex handshake support, do not support h264/aac to adobe flash player${BLACK}"
 fi
 if [ $SRS_FFMPEG = YES ]; then
     echo -e "${GREEN}live stream transcoding over FFMPEG is enabled${BLACK}"
